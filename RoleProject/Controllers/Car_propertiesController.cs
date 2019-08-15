@@ -15,8 +15,10 @@ namespace RoleProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Car_properties
-        public ActionResult Index()
+        public ActionResult List_Of_all(Car car)
         {
+
+            TempData["car_called"] = car ;
             return View(db.Car_properties.ToList());
         }
 

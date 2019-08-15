@@ -1,22 +1,13 @@
-﻿@model RoleProject.Models.Car
-
+﻿@model  RoleProject.Models.Car
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "bill";
 }
 
-<h2>Details</h2>
-
+<h2>bill</h2>
 <div>
     <h4>Car</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.photo_Car )
-        </dt>
-        <dd>
-            <img src="~/images/@Model.photo_Car" width="150" height="150" style="border-radius:50%" />
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Type_Of_Car)
         </dt>
@@ -42,14 +33,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Chassis_No)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Chassis_No)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.price_in_day)
         </dt>
 
@@ -63,14 +46,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.price_Total)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Is_reseved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Is_reseved)
         </dd>
 
         <dt>
@@ -88,29 +63,6 @@
         <dd>
             @Html.DisplayFor(model => model.End_Book_Date)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Agince_Of_Car.name))
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
-        </dd>
-
-
-
-
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Car_Id }) |
     @Html.ActionLink("Back to List", "List_Of_All")
-</p>
+</div>

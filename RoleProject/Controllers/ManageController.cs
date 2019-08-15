@@ -72,7 +72,8 @@ namespace RoleProject.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
-            return View(model);
+            string id = userId;
+            return RedirectToAction("Details","Agince", new { id });
         }
 
         //

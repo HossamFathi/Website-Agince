@@ -1,22 +1,14 @@
-﻿@model RoleProject.Models.Car
-
+﻿@model  RoleProject.Models.Car
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "CancelRecive";
 }
 
-<h2>Details</h2>
-
+<h2>Cancel Recive</h2>
+<h3>Are you sure you want to Cancel Recive?</h3>
 <div>
     <h4>Car</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.photo_Car )
-        </dt>
-        <dd>
-            <img src="~/images/@Model.photo_Car" width="150" height="150" style="border-radius:50%" />
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Type_Of_Car)
         </dt>
@@ -89,28 +81,39 @@
             @Html.DisplayFor(model => model.End_Book_Date)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Agince_Of_Car.name))
-        </dd>
+            @Html.DisplayFor(model => model.Agince_Of_Car.name)
+        </dd>*@
+        @*@if (Model.Is_reseved == true)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CLIENT.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.CLIENT.Name)
+            </dd>
+        }*@
 
 
 
 
     </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+          
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancel" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List_Of_All")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Car_Id }) |
-    @Html.ActionLink("Back to List", "List_Of_All")
-</p>
+
+

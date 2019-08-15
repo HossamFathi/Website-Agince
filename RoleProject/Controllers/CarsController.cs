@@ -29,7 +29,7 @@ namespace RoleProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Car car = db.Cars.Find(id);
+            Car car = db.Cars.FirstOrDefault(Car_ => Car_.Car_Id == id);
             if (car == null)
             {
                 return HttpNotFound();
@@ -56,22 +56,34 @@ namespace RoleProject.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                string filename = Path.GetFileNameWithoutExtension(car.photo_path.FileName);
-                string Extintion = Path.GetExtension(car.photo_path.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                car.photo_Car = filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                car.photo_path.SaveAs(filename);
-
+                if (car.photo_path != null)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(car.photo_path.FileName);
+                    string Extintion = Path.GetExtension(car.photo_path.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                    car.photo_Car = filename;
+                    filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                    car.photo_path.SaveAs(filename);
+                }
                 db.Cars.Add(car);
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+                return RedirectToAction("List_Of_All" , "Car_properties" ,car);
             }
 
             return View(car);
         }
-
+        public ActionResult Add_properity(int? id)
+        {
+            Car car;
+           
+                car = TempData["car_called"] as Car;
+                car.Additional_properties = new System.Collections.ObjectModel.Collection<Car_properties>();
+                var properity = db.Car_properties.FirstOrDefault(prop => prop.id == id);
+                car.Additional_properties.Add(properity);
+                db.SaveChanges();
+            
+            return View("List_Of_All", "Car_properties", car);
+        }
         // GET: Cars/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -87,35 +99,47 @@ namespace RoleProject.Controllers
 
             return View(car);
         }
-
         // POST: Cars/Edit/5
-
-
-
-
-
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Car car)
+        public ActionResult Edit(int? id,Car car)
         {
-            if (ModelState.IsValid)
-            {
-                string filename = Path.GetFileNameWithoutExtension(car.photo_path.FileName);
-                string Extintion = Path.GetExtension(car.photo_path.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                car.photo_Car = filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                car.photo_path.SaveAs(filename);
 
-                db.Entry(car).State = EntityState.Modified;
+            try
+            {
+                //return car to edit
+                var Car_Edititing = db.Cars.FirstOrDefault(car_ => car_.Car_Id == id);
+                // update data in car
+                Car_Edititing.Car_Brand = car.Car_Brand;
+                Car_Edititing.Car_Model = car.Car_Model;
+                Car_Edititing.Chassis_No = car.Chassis_No;
+                Car_Edititing.Start_Book_Date= car.Start_Book_Date;
+                Car_Edititing.End_Book_Date= car.End_Book_Date;
+                Car_Edititing.price_in_day= car.price_in_day;
+                Car_Edititing.Is_reseved= car.Is_reseved;
+
+
+                if (car.photo_path != null)
+                {
+                    //to update photo-------------------------------------------------
+                    string filename = Path.GetFileNameWithoutExtension(car.photo_path.FileName);
+                    string Extintion = Path.GetExtension(car.photo_path.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                    Car_Edititing.photo_Car = filename;
+                    filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                    car.photo_path.SaveAs(filename);
+                    //-----------------------------------------------------------------
+                }
+                
+                // save update
                 db.SaveChanges();
                 return RedirectToAction("List_Of_All");
             }
+            catch
+            {
 
-            return View(car);
+                return View(car);
+            }
         }
 
         // GET: Cars/Delete/5
@@ -132,7 +156,6 @@ namespace RoleProject.Controllers
             }
             return View(car);
         }
-
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -143,64 +166,110 @@ namespace RoleProject.Controllers
             db.SaveChanges();
             return RedirectToAction("List_Of_All");
         }
-
-
-
-
-
-
-
-
-
-
-        public ActionResult Booking(int id)
+        public ActionResult Recive(int? id)
         {
-            return View(db.Cars.Find(id));
+            var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
+            if (Cars_Recived != null)
+            {
+                
+                
+                    return View(Cars_Recived);// display View of recive
+                
+                
+                
+                    //return View("Recive_Alredy_Done", Cars_Recived);//display Cars is Elredy recirved
+                
+            }
+            else
+            {
+                return View("Car_Not_Found"); // dispaly Cars is Not Fount ;
+
+            }
+        }
+        // POST: Cars/Edit/5
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public object Recive(int? Car_Id, DateTime Start_Book_Date, DateTime End_Book_Date)
+        {
+            /*check by Cars number*/
+            var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == Car_Id);
+            if (Cars_Recived.Is_reseved == false)
+            {
+                if ((Cars_Recived.Start_Book_Date <= Start_Book_Date && Cars_Recived.End_Book_Date >= End_Book_Date))
+                {
+                    return View("Recive_Alredy_Done", Cars_Recived);//display Cars is Elredy recirved}
+                }
+                Cars_Recived.Is_reseved = true;
+                Cars_Recived.Start_Book_Date = Start_Book_Date;
+                Cars_Recived.End_Book_Date = End_Book_Date;
+                Calc_price(Cars_Recived);
+                db.SaveChanges();
+                return View("Displa_Reciving", Cars_Recived);// display confirm for client recived done
+            }
+            else
+            {
+                return View("Recive_Alredy_Done", Cars_Recived);//display Cars is Elredy recirved
+            }
+
+
+        }
+        public ActionResult CancelRecive(int? id)
+        {
+            var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
+            if (Cars_Recived != null)
+            {
+                if (Cars_Recived.Is_reseved == true)
+                {
+                    return View(Cars_Recived);// display View of recive
+                }
+                else
+                {
+                    return View("Recive_Not_Done_Yet", Cars_Recived);//display Cars is not recirved yet
+                }
+            }
+            else
+            {
+                return View("Car_Not_Found"); // dispaly Cars is Not Fount ;
+
+            }
         }
 
         // POST: Cars/Edit/5
 
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Booking(Car car)
+        public ActionResult CancelRecive(int Id, Car car_)
         {
-            if (ModelState.IsValid)
+            var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == Id);
+            if (Cars_Recived.Is_reseved == true)
             {
-
-                db.Entry(car).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Cars_Recived.Is_reseved = false;
+                if (Cars_Recived.Start_Book_Date <= DateTime.Now)
+                {
+                    Cars_Recived.End_Book_Date = DateTime.Now;
+                    Calc_price(Cars_Recived);
+                    db.SaveChanges();
+                    return View("bill", Cars_Recived);
+                }
+                else
+                {
+                    Cars_Recived.End_Book_Date = Cars_Recived.Start_Book_Date;
+                    Calc_price(Cars_Recived);
+                    db.SaveChanges();
+                    return View("bill", Cars_Recived);//display Cancel is Done with no cost 
+                }
+            }
+            else
+            {
+                return View();//display Cars is not recirved yet
             }
 
-            return View(car);
         }
-
-        public ActionResult CancelBooking(int id)
+        public void Calc_price(Car Cars_reciveing)
         {
-            return View(db.Cars.Find(id));
-        }
-
-        // POST: Cars/Edit/5
-
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CancelBooking(Car car)
-        {
-            if (ModelState.IsValid)
-            {
-
-                db.Entry(car).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(car);
+            int days_is_recived = Cars_reciveing.End_Book_Date.Subtract(Cars_reciveing.Start_Book_Date).Days;
+            Cars_reciveing.price_Total = days_is_recived * Cars_reciveing.price_in_day;
         }
     }
 }

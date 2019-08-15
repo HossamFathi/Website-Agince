@@ -4,13 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Cars in Agince</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-hover ">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.photo_Car)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Type_Of_Car)
         </th>
@@ -27,31 +30,22 @@
             @Html.DisplayNameFor(model => model.price_in_day)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price_Total)
-        </th>
-        @*<th>
-                @Html.HiddenFor(model => model.Is_reseved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start_Book_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.End_Book_Date)
-            </th>*@
-        <th>
             @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
         </th>
-
-       
+        <th>Statuis</th>
         <th>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
+            Others
         </th>
-        
+
+
     </tr>
 
     @foreach (var item in Model)
     {
 <tr>
+    <td>
+        <img src="~/images/@item.photo_Car" width="150" height="150" style="border-radius:50%" />
+    </td>
     <td>
         @Html.DisplayFor(modelItem => item.Type_Of_Car)
     </td>
@@ -68,26 +62,14 @@
         @Html.DisplayFor(modelItem => item.price_in_day)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.price_Total)
-    </td>
-    <td>
-        @Html.HiddenFor(modelItem => item.Is_reseved)
-    </td>
-    <td>
-        @Html.HiddenFor(modelItem => item.Start_Book_Date)
-    </td>
-    <td>
-        @Html.HiddenFor(modelItem => item.End_Book_Date)
-    </td>
-    <td>
         @Html.DisplayFor(modelItem => item.Agince_Of_Car.name)
     </td>
-    @if (item.Is_reseved == true)
+    @*@if (item.Is_reseved == true)
     {
         <td>
             @Html.DisplayFor(modelItem => item.CLIENT.Name)
         </td>
-}
+    }*@
 
 
 
@@ -105,12 +87,11 @@
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }) |
         @Html.ActionLink("Details", "Details", new { id = item.Car_Id }) |
-        @*@Html.ActionLink("Booking this car", "Booking", new { id = item.Car_Id }) |
-        @Html.ActionLink("Cancel Booking this car", "CancelBooking", new { id = item.Car_Id }) |*@
-        @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id })
-        CancelBooking
+        @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id })|
+        @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }) |
+        @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id }) 
     </td>
-</tr>
+    </tr>
     }
 
 </table>

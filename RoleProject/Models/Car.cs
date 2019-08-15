@@ -14,7 +14,7 @@ namespace RoleProject.Models
         [Required]
         [Display(Name = "Car Number")]
 
-        public String Car_Id { get; set; }
+        public int Car_Id { get; set; }
         [Required]
         [Display(Name = "Type of Car")]
 

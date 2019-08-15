@@ -1,10 +1,12 @@
-﻿@model IEnumerable<RoleProject.Models.Car_properties>
+﻿@using RoleProject.Models
+@model IEnumerable<RoleProject.Models.Car_properties>
 
 @{
     ViewBag.Title = "Index";
+    Car Car = ViewData["car_called"] as Car;
 }
 
-<h2>Index</h2>
+<h2>List of properties</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,16 +20,17 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.proprity_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.proprity_Name)
+    </td>
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+        <a href="/Cars/Add_properity/@item.id">add</a>
+    </td>
+</tr>
 }
 
 </table>

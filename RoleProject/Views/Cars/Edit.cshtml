@@ -58,42 +58,36 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.price_Total, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.price_Total, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price_Total, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.Is_reseved, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.LabelFor(model => model.Is_reseved, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.HiddenFor(model => model.Is_reseved)
+                    @Html.EditorFor(model => model.Is_reseved)
                     @Html.ValidationMessageFor(model => model.Is_reseved, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
                 @Html.LabelFor(model => model.Start_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.h(model => model.Start_Book_Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Start_Book_Date, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Start_Book_Date, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
                 @Html.LabelFor(model => model.End_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.End_Book_Date, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.End_Book_Date, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.aganis_id, "aganis_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @*@Html.LabelFor(model => model.Agince_Of_Car, "aganis_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.Agince_Of_Car.Agince_ID)
                 @Html.ValidationMessageFor(model => model.Agince_Of_Car.Agince_ID, "", new { @class = "text-danger" })
@@ -103,7 +97,7 @@
         {
 
             <div class="form-group">
-                @*@Html.LabelFor(model => model.Clinet_id, "Clinet_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
+               @*@Html.LabelFor(model => model.CLIENT, "Clinet_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     @Html.HiddenFor(model => model.CLIENT.Client_ID)
                     @Html.ValidationMessageFor(model => model.CLIENT.Client_ID, "", new { @class = "text-danger" })
@@ -129,7 +123,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List_Of_all")
 </div>
 
 @section Scripts {

@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4259B298-EFAF-46F0-AD26-8116267F0CEA}</ProjectGuid>
+    <ProjectGuid>{34EBDD74-E218-411A-8C76-73CEC7F92C6D}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -179,18 +179,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908100013321_mymig.cs" />
-    <Compile Include="Migrations\201908100013321_mymig.Designer.cs">
-      <DependentUpon>201908100013321_mymig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908100059463_mymig2.cs" />
-    <Compile Include="Migrations\201908100059463_mymig2.Designer.cs">
-      <DependentUpon>201908100059463_mymig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908100435306_mymig3.cs" />
-    <Compile Include="Migrations\201908100435306_mymig3.Designer.cs">
-      <DependentUpon>201908100435306_mymig3.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agince.cs" />
@@ -290,6 +278,13 @@
     <Content Include="Views\Aginces\Details.cshtml" />
     <Content Include="Views\Aginces\Edit.cshtml" />
     <Content Include="Views\Aginces\List_Of_All.cshtml" />
+    <Content Include="Views\Cars\Recive.cshtml" />
+    <Content Include="Views\Cars\Recive_Alredy_Done.cshtml" />
+    <Content Include="Views\Cars\Car_Not_Found.cshtml" />
+    <Content Include="Views\Cars\Displa_Reciving.cshtml" />
+    <Content Include="Views\Cars\CancelRecive.cshtml" />
+    <Content Include="Views\Cars\bill.cshtml" />
+    <Content Include="Views\Cars\Recive_Not_Done_Yet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,17 +302,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908100013321_mymig.resx">
-      <DependentUpon>201908100013321_mymig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908100059463_mymig2.resx">
-      <DependentUpon>201908100059463_mymig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908100435306_mymig3.resx">
-      <DependentUpon>201908100435306_mymig3.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

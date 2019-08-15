@@ -109,7 +109,8 @@ namespace RoleProject.Controllers
             {
                 var newAgince = context.Agince.FirstOrDefault(agince_ => agince_.Agince_ID == id);
 
-               
+                if (agince.photo_path != null)
+                {
                     newAgince.name = agince.name;
                     newAgince.phone_number = agince.phone_number;
                     /*Add photo to Data Base*/
@@ -120,7 +121,7 @@ namespace RoleProject.Controllers
                     filename = Path.Combine(Server.MapPath("~/images/"), filename);
                     agince.photo_path.SaveAs(filename);
                     //----------------------------/
-
+                }
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
