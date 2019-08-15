@@ -33,10 +33,10 @@ namespace RoleProject.Models
         public int Chassis_No { get; set; }
         [Display(Name = "Date of book")]
 
-        public Nullable<DateTime> Start_Book_Date { get; set; }
+        public DateTime Start_Book_Date { get; set; }
         [Display(Name = "Date of finish Book")]
 
-        public Nullable<DateTime> End_Book_Date { get; set; }
+        public DateTime End_Book_Date { get; set; }
         [Required]
         [Display(Name = "Price per day")]
 
