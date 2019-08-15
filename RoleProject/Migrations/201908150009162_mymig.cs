@@ -63,8 +63,10 @@ namespace RoleProject.Migrations
                     {
                         Client_ID = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false),
-                        password = c.String(nullable: false, maxLength: 100),
+                        password = c.String(nullable: false),
                         phone_Number = c.String(nullable: false),
+                        city = c.String(),
+                        street = c.String(),
                         age = c.Int(),
                         number_of_licience = c.Int(),
                         date_of_licience_expiry = c.DateTime(),
@@ -76,6 +78,8 @@ namespace RoleProject.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        city = c.String(),
+                        street = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
