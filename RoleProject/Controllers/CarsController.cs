@@ -18,7 +18,7 @@ namespace RoleProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cars
-        [AllowAnonymous]
+        [Authorize(Roles = "Client , Agince")]
         public ActionResult List_Of_All()
         {
             var cars = db.Cars.ToList();
@@ -144,7 +144,7 @@ namespace RoleProject.Controllers
 
 
         // GET: Cars/Create
-      
+        [Authorize(Roles = "Agince")]
         public ActionResult Create()
         {
 
@@ -155,6 +155,7 @@ namespace RoleProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Agince")]
 
         public ActionResult Create( Car car)
         {
@@ -272,6 +273,7 @@ namespace RoleProject.Controllers
             db.SaveChanges();
             return RedirectToAction("List_Of_All");
         }
+        [Authorize(Roles ="Client")]
         public ActionResult Recive(int? id)
         {
             var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
