@@ -34,8 +34,21 @@ namespace RoleProject.Models
        
         public DbSet<Car_properties> Car_properties { get; set; }
         public DbSet<Client> Client { get; set; }
-      
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Car>()
+                 .HasMany<Car_properties>(c => c.Additional_properties)
+                 .WithMany(cP => cP.Car)
+                 .Map(c =>
+                 {
+                     c.MapLeftKey("Cars");
+                     c.MapRightKey("Car_properties");
+                     c.ToTable("Car_propertiesCar");
+                 });
+            base.OnModelCreating(modelBuilder);
+        }
+       
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

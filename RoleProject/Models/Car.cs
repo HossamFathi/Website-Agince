@@ -10,6 +10,10 @@ namespace RoleProject.Models
 {
     public class Car
     {
+        public Car()
+        {
+            Additional_properties = new List<Car_properties>();
+        }
         [Key]
         [Required]
         [Display(Name = "Car Number")]
@@ -47,7 +51,7 @@ namespace RoleProject.Models
         
         public bool Is_reseved { get; set; } 
         [ForeignKey("Car_no")]
-        public Collection<Car_properties> Additional_properties { get; set; }
+        public List<Car_properties> Additional_properties { get; set; }
         public string photo_Car { get; set; }
         [NotMapped]
         public HttpPostedFileBase photo_path { get; set; }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RoleProject.Models;
+using RoleProject.View_Model;
 
 namespace RoleProject.Controllers
 {
@@ -122,7 +123,7 @@ namespace RoleProject.Controllers
 
         }
 
-
+      
 
         // GET: Cars/Details/5
         [AllowAnonymous]
@@ -134,6 +135,20 @@ namespace RoleProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Car car = db.Cars.FirstOrDefault(Car_ => Car_.Car_Id == id);
+            cars_and_properties list = new cars_and_properties() ;
+              list.Property_Name =  (
+                       from car_ in db.Cars
+                       from car_prop in car_.Additional_properties
+                       where(car_.Car_Id == id)
+                       select  
+                       (
+                        car_prop.proprity_Name
+                       )).ToList();
+           
+           
+
+
+            ViewBag.list_of_properties = list;
             if (car == null)
             {
                 return HttpNotFound();
@@ -157,9 +172,9 @@ namespace RoleProject.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Agince")]
 
-        public ActionResult Create( Car car)
+        public ActionResult Create(Agince agince ,Car car)
         {
-            if (ModelState.IsValid)
+            try
             {
                 if (car.photo_path != null)
                 {
@@ -171,23 +186,31 @@ namespace RoleProject.Controllers
                     car.photo_path.SaveAs(filename);
                 }
                 db.Cars.Add(car);
+                if (agince.Agince_ID !=  null)
+                {
+                    car.Agince_Of_Car = agince;
+                }
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All" , "Car_properties" ,car);
+                return RedirectToAction("List_Of_All", "Car_properties", car);
             }
-
-            return View(car);
+            catch
+            {
+                return View(car);
+            }
         }
         public ActionResult Add_properity(int? id)
         {
             Car car;
            
                 car = TempData["car_called"] as Car;
-                car.Additional_properties = new System.Collections.ObjectModel.Collection<Car_properties>();
+          
                 var properity = db.Car_properties.FirstOrDefault(prop => prop.id == id);
-                car.Additional_properties.Add(properity);
+                properity.Car.Add(car);
+            car.Additional_properties.Add(properity);
+
                 db.SaveChanges();
             
-            return View("List_Of_all", "Car_properties",car);
+            return RedirectToAction("List_Of_all","Car_properties",car);
         }
 
 
@@ -240,7 +263,7 @@ namespace RoleProject.Controllers
                 
                 // save update
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+                return RedirectToAction("List_Of_All", "Car_properties", Car_Edititing);
             }
             catch
             {

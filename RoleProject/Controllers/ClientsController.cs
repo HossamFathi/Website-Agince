@@ -29,8 +29,6 @@ namespace RoleProject.Controllers
         public ActionResult Search(string searchItem)
         {
 
-
-
             return PartialView("_Search_Client_Partial");
         }
         [AllowAnonymous]
@@ -99,18 +97,6 @@ namespace RoleProject.Controllers
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         // GET: Clinets/Details/5
         public ActionResult Details(String id)
             {
@@ -118,7 +104,7 @@ namespace RoleProject.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-            Client clinet = db.Client.Find(id);
+            Client clinet = db.Client.FirstOrDefault(client_ => client_.Client_ID == id) ;
                 if (clinet == null)
                 {
                     return HttpNotFound();
@@ -140,6 +126,7 @@ namespace RoleProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     db.Client.Add(clinet);
                     db.SaveChanges();
                     return RedirectToAction("List_Of_All");

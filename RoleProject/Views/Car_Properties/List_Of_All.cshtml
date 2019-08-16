@@ -19,18 +19,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.proprity_Name)
-    </td>
-    <td>
-        @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-        @Html.ActionLink("Details", "Details", new { id=item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
-        <a href="/Cars/Add_properity/@item.id">add</a>
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.proprity_Name)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+                <a href="/Cars/Add_properity/@item.id">add</a>
+            </td>
+        </tr>
+    }
 
 </table>
+@using (Html.BeginForm("List_OF_all", "Cars", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Done" class="btn btn-default" />
+        </div>
+    </div>
+
+}

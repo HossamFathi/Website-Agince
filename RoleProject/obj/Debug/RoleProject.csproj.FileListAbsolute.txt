@@ -427,8 +427,6 @@ G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.CoreCompileInputs.cach
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.CopyComplete
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.dll
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.pdb
-G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.mymig.resources
-G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
 C:\Users\LEGION\Desktop\New folder\Website-Agince\RoleProject\obj\Debug\RoleProject.csprojAssemblyReference.cache
 C:\Users\LEGION\Desktop\New folder\Website-Agince\RoleProject\obj\Debug\RoleProject.Migrations.mymig.resources
 C:\Users\LEGION\Desktop\New folder\Website-Agince\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
@@ -643,3 +641,6 @@ C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\Role
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.pdb
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.Migrations.mymig.resources
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
+G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration.resources
+G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
+G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration1.resources

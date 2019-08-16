@@ -1,7 +1,9 @@
-﻿@model RoleProject.Models.Car
+﻿@using RoleProject.View_Model
+@model RoleProject.Models.Car
 
 @{
     ViewBag.Title = "Details";
+   cars_and_properties list_of_properties = ViewBag.list_of_properties;
 }
 
 <h2>Details</h2>
@@ -11,7 +13,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.photo_Car )
+            @Html.DisplayNameFor(model => model.photo_Car)
         </dt>
         <dd>
             <img src="~/images/@Model.photo_Car" width="150" height="150" style="border-radius:50%" />
@@ -104,7 +106,16 @@
         <dd>
             @Html.DisplayFor(model => model.CLIENT.Name)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Additional_properties)
+        </dt>
+        @foreach (var cars in list_of_properties.Property_Name)
+        {
+           <dd>@cars</dd>  
+        }
+        <dd>
+            @Html.DisplayFor(model => model.CLIENT.Name)
+        </dd>
 
 
 
