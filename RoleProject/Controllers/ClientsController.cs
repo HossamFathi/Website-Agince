@@ -22,8 +22,97 @@ namespace RoleProject.Controllers
                 return View(db.Client.ToList());
             }
 
-            // GET: Clinets/Details/5
-            public ActionResult Details(String id)
+        //Search
+
+        [AllowAnonymous]
+
+        public ActionResult Search(string searchItem)
+        {
+
+
+
+            return PartialView("_Search_Client_Partial");
+        }
+        [AllowAnonymous]
+
+        public ActionResult Go_Search(string searchItem)
+        {
+
+                    var c = db.Client.FirstOrDefault( v=>v.Client_ID== searchItem);
+
+            if (c == null)
+            {
+                return View("SearchError");// go to error page
+
+            }
+            else
+            return View("Details", c);
+        }
+
+
+
+        public ActionResult sorting()
+        {
+            return PartialView("_Sorting_clinet_Partial");
+        }
+
+        public ActionResult Go_sorting(int? num)
+        {
+
+
+            if (num == null)
+            {
+
+                return View("List_Of_All", db.Client.ToList());
+
+
+            }
+            else
+
+            {
+
+                var clinet = new List<Client>();
+                switch (num)
+                {
+
+                    case 1:
+                        clinet = db.Client.OrderBy(e => e.age).ToList();
+                        break;
+                    case 2:
+                        clinet = db.Client.OrderBy(e => e.city).ToList();
+                        break;
+                    case 3:
+                        clinet = db.Client.OrderBy(e => e.street).ToList();
+                        break;
+                    case 4:
+                        clinet = db.Client.OrderBy(e => e.Name).ToList();
+                        break;
+                    case 5:
+                        clinet = db.Client.OrderBy(e => e.date_of_licience_expiry).ToList();
+                        break;
+
+                }
+
+
+
+                return View("List_Of_All", clinet);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // GET: Clinets/Details/5
+        public ActionResult Details(String id)
             {
                 if (id == null)
                 {

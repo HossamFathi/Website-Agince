@@ -1,4 +1,4 @@
-﻿@using  RoleProject.Models
+﻿@using RoleProject.Models
 @model List<Agince>
 
 @{
@@ -7,6 +7,21 @@
 
 <h2>Index</h2>
 
+<div id="create_2"></div>
+@Ajax.ActionLink("sorting", "sorting", "Agince", new AjaxOptions
+{
+    HttpMethod = "get",
+    UpdateTargetId = "create_2",
+    InsertionMode = InsertionMode.Replace
+},
+new
+{
+     @class = "text-danger",
+
+})
+
+
+
 <div>
     <h4>Agince</h4>
     <hr />
@@ -14,11 +29,11 @@
 
         <tr>
             <th>
-               agince Name
+                agince Name
             </th>
 
             <th>
-               Photo 
+                Photo
             </th>
             <th>
                 city
@@ -30,7 +45,7 @@
                 phone number
             </th>
             <th>
-               Others
+                Others
             </th>
         </tr>
 
@@ -57,7 +72,7 @@
                 </td>
                 <td>
                     <a href="/Agince/Edit/@item.Agince_ID">Edit</a>
-               
+
                     <a href="/Agince/delete/@item.Agince_ID">delete</a>
                 </td>
 
@@ -73,6 +88,11 @@
     </table>
 </div>
 <p>
-  
+
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section scripts{
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}

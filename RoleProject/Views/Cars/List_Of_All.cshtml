@@ -2,13 +2,46 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
 
 <h2>Cars in Agince</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+
 </p>
+@* sorting *@
+
+@Ajax.ActionLink("sorting", "sorting", "Cars", new AjaxOptions
+{
+    HttpMethod = "get",
+    UpdateTargetId = "create_2",
+    InsertionMode = InsertionMode.Replace
+},
+new
+{
+     @class = "text-danger",
+
+})
+
+
+
+@* search *@
+
+@Ajax.ActionLink("Search", "Search", "Cars", new AjaxOptions
+{
+    HttpMethod = "get",
+    UpdateTargetId = "create_2",
+    InsertionMode = InsertionMode.Replace
+},
+new
+{
+     @class = "text-danger",
+
+})
+<div id="create_2"></div>
 <table class="table table-hover ">
     <tr>
         <th>
@@ -29,9 +62,7 @@
         <th>
             @Html.DisplayNameFor(model => model.price_in_day)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
-        </th>
+
         <th>Statuis</th>
         <th>
             Others
@@ -42,56 +73,59 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        <img src="~/images/@item.photo_Car" width="150" height="150" style="border-radius:50%" />
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Type_Of_Car)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Car_Brand)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Car_Model)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Chassis_No)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.price_in_day)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Agince_Of_Car.name)
-    </td>
-    @*@if (item.Is_reseved == true)
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.CLIENT.Name)
-        </td>
-    }*@
+        <tr>
+            <td>
+                <img src="~/images/@item.photo_Car" width="150" height="150" style="border-radius:50%" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type_Of_Car)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car_Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car_Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chassis_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price_in_day)
+            </td>
+
+            @*@if (item.Is_reseved == true)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CLIENT.Name)
+                    </td>
+                }*@
 
 
 
-    <td>
-        @if (item.Is_reseved == false)
-        {
-            <div style="background:red; height:100px; width:100px;">  </div>
+            <td>
+                @if (item.Is_reseved == false)
+                {
+                    <div style="background:red; height:100px; width:100px;">  </div>
 
-        }
-        else
-        {
-            <div style="background:blue ; height:100px; width:100px;">  </div>
-        }
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Car_Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id })|
-        @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }) |
-        @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id }) 
-    </td>
-    </tr>
+                }
+                else
+                {
+                    <div style="background:blue ; height:100px; width:100px;">  </div>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Car_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id })|
+                @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }) |
+                @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id })
+            </td>
+        </tr>
     }
 
 </table>
+@section scripts{
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}

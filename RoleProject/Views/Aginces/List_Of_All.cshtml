@@ -4,13 +4,47 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>List of all agince</h2>
+
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+@* sorting *@
+
+@Ajax.ActionLink("sorting", "sorting", "Aginces", new AjaxOptions
+{
+    HttpMethod = "get",
+    UpdateTargetId = "create_2",
+    InsertionMode = InsertionMode.Replace
+},
+new
+{
+     @class = "text-danger",
+
+})
+
+@* search *@
+@Ajax.ActionLink("Search", "Search", "Aginces", new AjaxOptions
+{
+    HttpMethod = "get",
+    UpdateTargetId = "create_2",
+    InsertionMode = InsertionMode.Replace
+},
+new
+{
+     @class = "text-danger",
+
+})
+<div id="create_2"></div>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Agince_ID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
@@ -32,32 +66,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone_number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.photo_Agince)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Agince_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Agince_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Agince_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Agince_ID)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.password)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.phone_number)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.city)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.street)
+    </td>
+    <td>
+        <img src="@item.photo_Agince" />
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Agince_ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Agince_ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Agince_ID })
+    </td>
+</tr>
+    }
 
 </table>
+@section scripts{
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}

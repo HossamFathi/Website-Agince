@@ -21,6 +21,76 @@ namespace RoleProject.Controllers
             return View(db.Agince.ToList());
         }
 
+
+        public ActionResult sorting()
+        {
+            return PartialView("_Sorting_Agince_Partial");
+        }
+
+        public ActionResult Go_sorting(int? num)
+        {
+
+
+            if (num == null)
+            {
+
+                return View("List_Of_All", db.Agince.ToList());
+
+
+            }
+            else
+
+            {
+
+                var agince = new List<Agince>();
+                switch (num)
+                {
+
+                    case 1:
+                        agince = db.Agince.OrderBy(e => e.name).ToList();
+                        break;
+                    case 2:
+                        agince = db.Agince.OrderBy(e => e.city).ToList();
+                        break;
+                    case 3:
+                        agince = db.Agince.OrderBy(e => e.street).ToList();
+                        break;
+
+
+                }
+
+
+
+                return View("List_Of_All", agince);
+            }
+        }
+
+
+
+        public ActionResult Search(string searchItem)
+        {
+
+
+
+            return PartialView("_Search_Aginces_Partial");
+        }
+        [AllowAnonymous]
+
+        public ActionResult Go_Search(string searchItem)
+        {
+
+            var c = db.Agince.FirstOrDefault(v => v.Agince_ID == searchItem);
+            if (c == null) {
+                return View("SearchError");// go to error page
+
+            }
+            else
+            return View("Details", c);
+        }
+
+
+
+
         // GET: Aginces/Details/5
         public ActionResult Details(string id)
         {
@@ -50,12 +120,14 @@ namespace RoleProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                //string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
-                //string Extintion = Path.GetExtension(agince.photo_path.FileName);
-                //filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                //agince.photo_Agince = filename;
-                //filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                //agince.photo_path.SaveAs(filename);
+                /*Add photo to Data Base*/
+                string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
+                string Extintion = Path.GetExtension(agince.photo_path.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                agince.photo_Agince = filename;
+                filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                agince.photo_path.SaveAs(filename);
+                //----------------------------//
 
                 db.Agince.Add(agince);
                 db.SaveChanges();
@@ -84,23 +156,33 @@ namespace RoleProject.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Agince agince)
+        public ActionResult Edit(String id, Agince agince)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
-                string Extintion = Path.GetExtension(agince.photo_path.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                agince.photo_Agince = filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                agince.photo_path.SaveAs(filename);
+                var newAgince = db.Agince.FirstOrDefault(agince_ => agince_.Agince_ID == id);
 
-
-                db.Entry(agince).State = EntityState.Modified;
+                if (agince.photo_path != null)
+                {
+                    newAgince.name = agince.name;
+                    newAgince.phone_number = agince.phone_number;
+                    /*Add photo to Data Base*/
+                    string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
+                    string Extintion = Path.GetExtension(agince.photo_path.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                    newAgince.photo_Agince = filename;
+                    filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                    agince.photo_path.SaveAs(filename);
+                    //----------------------------/
+                }
                 db.SaveChanges();
                 return RedirectToAction("List_Of_All");
             }
-            return View(agince);
+            catch
+            {
+                return View("Edit");
+            }
         }
 
         // GET: Aginces/Delete/5

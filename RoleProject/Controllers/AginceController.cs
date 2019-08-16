@@ -21,6 +21,53 @@ namespace RoleProject.Controllers
 
         }
 
+
+        public ActionResult sorting()
+        {
+            return PartialView("_Sorting_Agince_Partial");
+        }
+
+        public ActionResult Go_sorting(int? num)
+        {
+
+
+            if (num == null)
+            {
+
+                return View("Index", context.Agince.ToList());
+
+
+            }
+            else
+
+            {
+
+                var Agince = new List<Agince>();
+                switch (num)
+                {
+
+                    case 1:
+                        Agince = context.Agince.OrderBy(e => e.name).ToList();
+                        break;
+                    case 2:
+                        Agince = context.Agince.OrderBy(e => e.city).ToList();
+                        break;
+                    case 3:
+                        Agince = context.Agince.OrderBy(e => e.street).ToList();
+                        break;
+
+
+                }
+
+
+
+                return View("Index", Agince);
+            }
+        }
+
+
+
+
         // GET: Agince/Details/5
         public ActionResult Details(String id)
         {

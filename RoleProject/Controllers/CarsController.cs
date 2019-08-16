@@ -11,18 +11,122 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
-    public class CarsController:Controller
+    //[Authorize(Roles = "Agince , Admin")]
+
+    public class CarsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cars
+        [AllowAnonymous]
         public ActionResult List_Of_All()
         {
             var cars = db.Cars.ToList();
             return View(cars);
         }
 
+        //List<int> numbers = new List<int>();
+
+
+        // search
+        [AllowAnonymous]
+
+        public ActionResult Search(string searchItem) {
+
+  
+
+            return PartialView("_Search_Car_Partial");
+        }
+        [AllowAnonymous]
+
+        public ActionResult Go_Search(string searchItem, int? num)
+        {
+
+            var cars = new List<Car>();
+
+            switch (num)
+            {
+
+                case 1:
+                    cars = (from n in db.Cars
+                            where n.Type_Of_Car.Contains(searchItem)
+                            select n).ToList();
+                    break;
+                case 2:
+                    cars = (from n in db.Cars
+                            where n.Car_Model.Contains(searchItem)
+                            select n).ToList();
+                    break;
+                case 3:
+                    cars = (from n in db.Cars
+                            where n.Car_Brand.Contains(searchItem)
+                            select n).ToList();
+                    break;
+            }
+
+            return View("List_Of_All", cars);
+
+        }
+
+        //sorting
+        [AllowAnonymous]
+
+        public ActionResult sorting()
+        {
+            return PartialView("_Sorting_Partial");
+        }
+        [AllowAnonymous]
+
+        public ActionResult Go_sorting(int? num)
+        {
+
+
+            if (num == null) {
+
+                return View("List_Of_All", db.Cars.ToList());
+
+
+            }
+            else
+
+            {
+
+                var cars = new List<Car>();
+                switch (num) {
+
+                    case 1:
+                        cars = db.Cars.OrderBy(e => e.Is_reseved).ToList();
+                        break;
+                    case 2:
+                        cars = db.Cars.OrderBy(e => e.price_in_day).ToList();
+                        break;
+                    case 3:
+                        cars = db.Cars.OrderBy(e => e.Car_Brand).ToList();
+                        break;
+                    case 4:
+                        cars = db.Cars.OrderBy(e => e.Car_Model).ToList();
+                        break;
+                    case 5:
+                        cars = db.Cars.OrderBy(e => e.Chassis_No).ToList();
+                        break;
+                    case 6:
+                        cars = db.Cars.OrderBy(e => e.End_Book_Date).ToList();
+                        break;
+
+                }
+
+
+
+                return View("List_Of_All", cars);
+            }
+
+        }
+
+
+
         // GET: Cars/Details/5
+        [AllowAnonymous]
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -40,7 +144,7 @@ namespace RoleProject.Controllers
 
 
         // GET: Cars/Create
-        //[Authorize(Roles = "Clinet")]
+      
         public ActionResult Create()
         {
 
@@ -82,8 +186,10 @@ namespace RoleProject.Controllers
                 car.Additional_properties.Add(properity);
                 db.SaveChanges();
             
-            return View("List_Of_All", "Car_properties", car);
+            return View("List_Of_all", "Car_properties",car);
         }
+
+
         // GET: Cars/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -189,7 +295,7 @@ namespace RoleProject.Controllers
         // POST: Cars/Edit/5
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public object Recive(int? Car_Id, DateTime Start_Book_Date, DateTime End_Book_Date)
         {
             /*check by Cars number*/

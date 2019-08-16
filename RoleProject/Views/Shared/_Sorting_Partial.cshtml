@@ -1,0 +1,42 @@
+﻿
+
+@{
+    ViewBag.Title = "_sorting_partial";
+}
+
+@Html.Label("Order By :",htmlAttributes: new { @class = "text-warning" })<br />
+@Html.ActionLink("reseved", "Go_sorting", new { num = 1 }, htmlAttributes: new { @class = "btn btn-danger" })
+@Html.ActionLink("price_in_day", "Go_sorting", new { num = 2 }, htmlAttributes: new { @class = "btn btn-danger" })
+@Html.ActionLink("Car_Brand", "Go_sorting", new { num = 3 }, htmlAttributes: new { @class = "btn btn-danger" })
+<br />
+@Html.ActionLink("Car_Model", "Go_sorting", new { num = 4 }, htmlAttributes: new { @class = "btn btn-danger" })
+@Html.ActionLink("Chassis_No", "Go_sorting", new { num = 5 }, htmlAttributes: new { @class = "btn btn-danger" })
+@Html.ActionLink("End_Book_Date", "Go_sorting", new { num = 6 }, htmlAttributes: new { @class = "btn btn-danger" })
+<br />
+@* or======>> *@
+
+<small>press 1 to orderby reseved</small>
+<br />
+<small>press 2 to orderby price_in_day</small>
+<br />
+<small>press 3 to orderby Car_Brand</small>
+<br />
+<small> press 4 to orderby Car_Model</small>
+<br />
+<small>press 5 to orderby Chassis_No</small>
+<br />
+<small>press 6 to orderby End_Book_Date</small>
+<br />
+
+
+@using (Html.BeginForm("Go_sorting", "Cars", FormMethod.Get))
+{
+
+    @Html.Editor("num", new { htmlAttributes = new { @class = "form-control" } })
+
+    <input type="submit" value="sorting" class="form-control btn btn-danger" />
+
+
+
+
+}

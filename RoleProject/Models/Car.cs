@@ -15,16 +15,17 @@ namespace RoleProject.Models
         [Display(Name = "Car Number")]
 
         public int Car_Id { get; set; }
+
         [Required]
         [Display(Name = "Type of Car")]
-
         public string Type_Of_Car { get; set; }
+
         [Required]
         [Display(Name = "Car Brand")]
 
         public string Car_Brand { get; set; }
         [Required]
-        [Display(Name = "CAr Model")]
+        [Display(Name = "Car Model")]
 
         public string Car_Model { get; set; }
         [Required]

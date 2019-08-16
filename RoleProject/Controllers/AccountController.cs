@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RoleProject.Models;
@@ -17,12 +20,13 @@ namespace RoleProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db;
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager , ApplicationDbContext db)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -52,7 +56,52 @@ namespace RoleProject.Controllers
             }
         }
 
-        //
+
+        public ActionResult List_of_all()
+        {
+           // IdentityRole role = new IdentityRole();
+          //  ViewBag.roles = role.Id;
+            return View(db.Users.ToList());
+
+        }
+
+        //eidt
+
+     
+
+
+
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+       
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit( ApplicationUser user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("List_Of_All");
+            }
+            else
+                return View(user);
+        }
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -272,7 +321,7 @@ namespace RoleProject.Controllers
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
-        {
+        { 
             return View();
         }
 
@@ -280,7 +329,8 @@ namespace RoleProject.Controllers
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
-        {
+        {                   ViewBag.Roles = new SelectList(context.Roles.ToList(), "Name", "Name");
+
             return code == null ? View("Error") : View();
         }
 
@@ -289,18 +339,34 @@ namespace RoleProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model/*, string Roles*/)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
+           // if (Roles == "Client") {
+
+           //     var c = db.Client.Find(model.Email);
+           //     c.password = model.Password;
+           //     db.SaveChanges();
+           // }
+           //else if (Roles == "Agince")
+           // {
+
+           //     var c = db.Agince.Find(model.Email);
+           //     c.password = model.Password;
+           //     db.SaveChanges();
+           // }
+
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {

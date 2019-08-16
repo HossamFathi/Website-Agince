@@ -13,7 +13,7 @@ namespace RoleProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201908150009162_mymig"; }
+            get { return "201908152024487_mymig"; }
         }
         
         string IMigrationMetadata.Source
