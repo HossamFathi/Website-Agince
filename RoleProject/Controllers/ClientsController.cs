@@ -194,6 +194,58 @@ namespace RoleProject.Controllers
                 return View(client);
             }
         }
+
+
+
+
+        // GET: Clients/complete_data
+        public ActionResult complete_data(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Client clinet = db.Client.Find(id);
+            if (clinet == null)
+            {
+                return HttpNotFound();
+            }
+            return View(clinet);
+        }
+
+        // Post : Clients/complete_data
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult complete_data(String id, Client clinet)
+        {
+
+            try
+            {
+                var newclinet = db.Client.FirstOrDefault(clinet_ => clinet_.Client_ID == id);
+
+                if (clinet.photo_path != null)
+                {
+
+                    /*Add photo to Data Base*/
+                    string filename = Path.GetFileNameWithoutExtension(clinet.photo_path.FileName);
+                    string Extintion = Path.GetExtension(clinet.photo_path.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                    newclinet.photo_Client = filename;
+                    filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                    clinet.photo_path.SaveAs(filename);
+                    //----------------------------/
+                }
+                db.SaveChanges();
+                return RedirectToAction("List_Of_All");
+            }
+            catch
+            {
+                return View("complete_data");
+            }
+        }
+
+
+
         // GET: Clinets/Delete/5
         public ActionResult Delete(String id)
         {

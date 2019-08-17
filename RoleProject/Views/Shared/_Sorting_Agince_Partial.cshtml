@@ -2,31 +2,18 @@
 
 
 
-@{
-    ViewBag.Title = "_Sorting_clinet_Partial";
-}
-
-@Html.Label("Order By :", htmlAttributes: new { @class = "text-warning" })
-<br />
-@Html.ActionLink("Name", "Go_sorting", new { num = 1 }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("City", "Go_sorting", new { num = 2 }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("Street", "Go_sorting", new { num = 3 }, htmlAttributes: new { @class = "btn btn-primary" })
-
-<br />
-@* or======>> *@
-
-<small>press 1 to orderby Name</small>
-<br />
-<small>press 2 to orderby City</small>
-<br />
-<small>press 3 to orderby Street</small>
-
 
 
 @using (Html.BeginForm("Go_sorting", "Aginces", FormMethod.Get))
 {
 
-    @Html.Editor("num", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.Label("Search type", htmlAttributes: new { @class = "text-warning" })
+    <select name="num" class="form-control">
+        <option value="1"> sorting by Name</option>
+        <option value="2"> sorting by City</option>
+        <option value="3"> sorting by Street</option>
+
+    </select>
 
     <input type="submit" value="sorting" class="form-control btn btn-danger" />
 

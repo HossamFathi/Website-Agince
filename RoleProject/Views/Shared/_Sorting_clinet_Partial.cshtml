@@ -1,38 +1,15 @@
 ﻿
 
-
-@{
-    ViewBag.Title = "_Sorting_clinet_Partial";
-}
-
-@Html.Label("Order By :", htmlAttributes: new { @class = "text-warning" })
-<br />
-@Html.ActionLink("Age", "Go_sorting", new { num = 1 }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("City", "Go_sorting", new { num = 2 }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("Street", "Go_sorting", new { num = 3 }, htmlAttributes: new { @class = "btn btn-primary" })
-<br />
-@Html.ActionLink("Name", "Go_sorting", new { num = 4 }, htmlAttributes: new { @class = "btn btn-primary" })
-@Html.ActionLink("Date Of Licience Expiry", "Go_sorting", new { num = 5 }, htmlAttributes: new { @class = "btn btn-primary" })
-<br />
-@* or======>> *@
-
-<small>press 1 to orderby Age</small>
-<br />
-<small>press 2 to orderby City</small>
-<br />
-<small>press 3 to orderby Street</small>
-<br />
-<small> press 4 to orderby Name</small>
-<br />
-<small> press 5 to orderby Date Of Licience Expiry</small>
-<br />
-
-
 @using (Html.BeginForm("Go_sorting", "Client", FormMethod.Get))
 {
+<select name="num" class="form-control">
+    <option value="1"> sorting by Age</option>
+    <option value="2"> sorting by City</option>
+    <option value="3"> sorting by Street</option>
+    <option value="4"> sorting by Name</option>
+    <option value="5"> sorting by Date Of Licience Expiry</option>
 
-    @Html.Editor("num", new { htmlAttributes = new { @class = "form-control" } })
-
+</select>
     <input type="submit" value="sorting" class="form-control btn btn-danger" />
 
 
