@@ -217,7 +217,15 @@ namespace RoleProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Roles = new SelectList(context.Roles.ToList(), "Name", "Name");
+          
+
+             if (!User.IsInRole("Admin"))
+                ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name != "Admin").ToList(), "Name", "Name");
+
+            else
+                ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name == "Admin").ToList(), "Name", "Name");
+
+
             return View();
         }
         ApplicationDbContext context = new ApplicationDbContext();
@@ -243,16 +251,19 @@ namespace RoleProject.Controllers
                         db.Client.Remove(db.Client.FirstOrDefault(w => w.Client_ID == model.Id));
                         db.SaveChanges();
                     }
+                    else
+                    {
+                        clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
+                        clinet.Name = model.UserName;
+                        clinet.password = model.Password;
+                        clinet.phone_Number = model.PhoneNumber;
+                        clinet.city = model.city;
+                        clinet.street = model.Street;
+                        context.Client.Add(clinet);
+                        context.SaveChanges();
+                    }
 
-                    clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
-
-                    clinet.Name = model.UserName;
-                    clinet.password = model.Password;
-                    clinet.phone_Number = model.PhoneNumber;
-                    clinet.city = model.city;
-                    clinet.street = model.Street;
-                    context.Client.Add(clinet);
-                    context.SaveChanges();
+                   
                 }
                
 
@@ -264,18 +275,18 @@ namespace RoleProject.Controllers
                         db.Agince.Remove(db.Agince.FirstOrDefault(w => w.Agince_ID == model.Id));
                         db.SaveChanges();
                     }
-                    aganis_Car.Agince_ID = (model.Id);
+                    else
+                    {
+                        aganis_Car.Agince_ID = (model.Id);
                         aganis_Car.name = model.UserName;
                         aganis_Car.password = model.Password;
                         aganis_Car.phone_number = model.PhoneNumber;
                         aganis_Car.city = model.city;
                         aganis_Car.street = model.Street;
-                    
-
-
-
-                    context.Agince.Add(aganis_Car);
-                    context.SaveChanges();
+                        context.Agince.Add(aganis_Car);
+                        context.SaveChanges();
+                    }
+                   
                 }
 
 
@@ -308,9 +319,16 @@ namespace RoleProject.Controllers
                     {
                         return RedirectToAction("complete_data", "Clients", new { id = user.Id });
                     }
+                    else
+                        return RedirectToAction("UsersWithRoles");
 
                 }
-                ViewBag.Roles = new SelectList(context.Roles.ToList(), "Name", "Name");
+
+                if (!User.IsInRole("Admin"))
+                    ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name != "Admin").ToList(), "Name", "Name");
+
+                else
+                    ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name == "Admin").ToList(), "Name", "Name"); ;
                 AddErrors(result);
             }
 
