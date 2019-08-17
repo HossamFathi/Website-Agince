@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using RoleProject.Models;
 using RoleProject.View_Model;
 
@@ -206,7 +207,7 @@ namespace RoleProject.Controllers
           
                 var properity = db.Car_properties.FirstOrDefault(prop => prop.id == id);
                 properity.Car.Add(car);
-            car.Additional_properties.Add(properity);
+                car.Additional_properties.Add(properity);
 
                 db.SaveChanges();
             
@@ -305,10 +306,8 @@ namespace RoleProject.Controllers
                 
                 
                     return View(Cars_Recived);// display View of recive
-                
-                
-                
-                    //return View("Recive_Alredy_Done", Cars_Recived);//display Cars is Elredy recirved
+     
+                 
                 
             }
             else
@@ -319,9 +318,10 @@ namespace RoleProject.Controllers
         }
         // POST: Cars/Edit/5
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public object Recive(int? Car_Id, DateTime Start_Book_Date, DateTime End_Book_Date)
+        public ActionResult Recive(int? Car_Id, DateTime Start_Book_Date, DateTime End_Book_Date)
         {
             /*check by Cars number*/
             var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == Car_Id);
@@ -335,6 +335,10 @@ namespace RoleProject.Controllers
                 Cars_Recived.Start_Book_Date = Start_Book_Date;
                 Cars_Recived.End_Book_Date = End_Book_Date;
                 Calc_price(Cars_Recived);
+                string client_id = User.Identity.GetUserId();
+                Client  CLIENT = db.Client.FirstOrDefault(client_ => client_.Client_ID == client_id );
+                Cars_Recived.CLIENT = CLIENT;
+                CLIENT.Booked_Car.Add(Cars_Recived);
                 db.SaveChanges();
                 return View("Displa_Reciving", Cars_Recived);// display confirm for client recived done
             }

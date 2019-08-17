@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="View Model\cars_and_properties.cs" />
+    <Compile Include="View Model\Recived_Cars_for_Client.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -299,6 +300,13 @@
     <Content Include="Views\Shared\SearchError.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Shared\_startPage_partial.cshtml" />
+    <Content Include="Views\Cars\bill.cshtml" />
+    <Content Include="Views\Cars\CancelRecive.cshtml" />
+    <Content Include="Views\Cars\Car_Not_Found.cshtml" />
+    <Content Include="Views\Cars\Displa_Reciving.cshtml" />
+    <Content Include="Views\Cars\Recive.cshtml" />
+    <Content Include="Views\Shared\Recive_Alredy_Done.cshtml" />
+    <Content Include="Views\Cars\Recive_Not_Done_Yet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

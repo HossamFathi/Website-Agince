@@ -112,8 +112,17 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Back to List", "List_Of_all")
-</div>
+    @using (Html.BeginForm("Details", "Clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Done" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

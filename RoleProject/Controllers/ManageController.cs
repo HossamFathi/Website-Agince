@@ -73,8 +73,22 @@ namespace RoleProject.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             string id = userId;
-            return RedirectToAction("Details","Agince", new { id });
+            //if (UserManager.GetRoles(userId).Contains("Admin"))
+            //{
+            //    return RedirectToAction("Details", "Agince", new { id });
+            //}
+            //else 
+            if (UserManager.GetRoles(userId).Contains("Agince"))
+            {
+                return RedirectToAction("Details", "Agince", new { id });
+            }
+            else if (UserManager.GetRoles(userId).Contains("Client"))
+            {
+                return RedirectToAction("Details", "Clients", new { id });
+            }
+            else return RedirectToAction("Index");
         }
+          
 
         //
         // POST: /Manage/RemoveLogin

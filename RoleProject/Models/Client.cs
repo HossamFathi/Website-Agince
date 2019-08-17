@@ -8,9 +8,13 @@ using System.Web;
 
 namespace RoleProject.Models
 {
-    public delegate object Bookcar_delegate(int car_Num, DateTime start_Book_Date, DateTime end_Book_Date);
+   
     public class Client
     {
+        public Client()
+        {
+            Booked_Car = new Collection<Car>();
+        }
         [Required]
         public string Name { get; set; }
         [Key]
@@ -49,6 +53,9 @@ namespace RoleProject.Models
 
         public Nullable<DateTime> date_of_licience_expiry { get; set; }
         public Collection<Car> Booked_Car { get; set; }
-        public event Bookcar_delegate book_Car_Event;
+        public string photo_Client { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase photo_path { get; set; }
+
     }
 }
