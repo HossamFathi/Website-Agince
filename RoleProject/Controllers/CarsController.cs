@@ -177,7 +177,12 @@ namespace RoleProject.Controllers
                                  (
                                     Dates.client
                                      )).ToList();
+            Agince agince = (from ca in db.Cars
+                             from ag in db.Agince
+                             where (ag.Agince_ID == ca.Agince_Of_Car.Agince_ID)
+                             select (ag)).FirstOrDefault();
 
+            ViewBag.Agince = agince;
             ViewBag.list_of_Recived_Date = Date;
             ViewBag.list_of_properties = cars_And_Properties;
             
@@ -407,7 +412,7 @@ namespace RoleProject.Controllers
                 db.SaveChanges();
                 ViewBag.startDate = Start_Recive_Date;
                 ViewBag.endDate = End_Recive_Date;
-            ViewBag.client = CLIENT.Name;
+                ViewBag.client = CLIENT.Name;
 
 
                 return View("Displa_Reciving", Cars_Recived);// display confirm for client recived done
@@ -416,65 +421,89 @@ namespace RoleProject.Controllers
 
 
         }
-        //public ActionResult CancelRecive(int? id)
-        //{
-        //    var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
-        //    if (Cars_Recived != null)
-        //    {
-        //        if (Cars_Recived.Is_reseved == true)
-        //        {
-        //            return View(Cars_Recived);// display View of recive
-        //        }
-        //        else
-        //        {
-        //            return View("Recive_Not_Done_Yet", Cars_Recived);//display Cars is not recirved yet
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return View("Car_Not_Found"); // dispaly Cars is Not Fount 
-        //    }
-        //}
+        public ActionResult DetailsCancel(int? id) {
+            ViewBag.CarID = id;
+            return View();
+        }
+        public ActionResult CancelReciveFirst(int? id, DateTime Start_Recive_Date)
+        {
+            var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
+            if (Cars_Recived != null)
+            {
+                string client_id = User.Identity.GetUserId();
+                Client CLIENT = db.Client.FirstOrDefault(client_ => client_.Client_ID == client_id);
+                ReciveDate reciveDate = db.ReciveDates.Where(ReciveDate => ReciveDate.Start_Recive_Date == Start_Recive_Date && ReciveDate.client.Client_ID == CLIENT.Client_ID).FirstOrDefault();
+                
+                if (reciveDate != null)
+                {
+                    ViewBag.ReciveDate = reciveDate;
+                    return View("CancelRecive",Cars_Recived);// display View of recive
+                }
+            else
+                {
+                    return View("Recive_Not_Done_Yet", Cars_Recived);//display Cars is not recirved yet
+                }
+            }
+            else
+            {
+                return View("Car_Not_Found"); // dispaly Cars is Not Fount 
+            }
+        }
 
-        //// POST: Cars/Edit/5
+        // POST: Cars/Edit/5
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CancelRecive(int Id, Client client)
-        //{
-        //    var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == Id);
-        //    string client_id = User.Identity.GetUserId();
-        //    client = db.Client.FirstOrDefault(client_ => client_.Client_ID == client_id);
-        //    if (Cars_Recived != null )
-        //    {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelRecive(ReciveDate reciveDate)
+        {
+            try
+            {
+                reciveDate = TempData["ReciveDate"] as ReciveDate ;
+                ReciveDate Rea_reciveDate = (from reciveDate_ in db.ReciveDates
+                                            where (reciveDate_.id == reciveDate.id)
+                                            select (
+                                            reciveDate_
+                                            )).FirstOrDefault();
+                Car Cars_Recived = (from reciveDate_ in db.ReciveDates
+                                   where (reciveDate_.id == reciveDate.id)
+                                   select (
+                                   reciveDate_.cars
+                                   )).FirstOrDefault();
+                //Car Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == reciveDate.cars.Car_Id);
+
+                    if (Rea_reciveDate != null)
+                    {
+
+                        if (Rea_reciveDate.Start_Recive_Date <= DateTime.Now)
+                        {
+                        Rea_reciveDate.End_Recive_Date = DateTime.Now;
+                            Calc_price(Rea_reciveDate);
+                            db.SaveChanges();
+                            return View("bill", Cars_Recived);
+                        }
+                        else
+                        {
+                        Rea_reciveDate.Start_Recive_Date = DateTime.Now;
+                        Rea_reciveDate.End_Recive_Date = DateTime.Now;
+                        db.SaveChanges();
+                            return RedirectToAction("List_of_all");//display Cancel is Done with no cost 
+
+                        }
+                    }
+                    else
+                    {
+                        return View("Recive_Not_Done_Yet", Cars_Recived);//display Cars is not recirved yet
+                    }
 
 
-        //    }
-        //    if (Cars_Recived.Is_reseved == true)
-        //    {
-        //        Cars_Recived.Is_reseved = false;
-        //        if ( <= DateTime.Now)
-        //        {
-        //            //Cars_Recived.End_Book_Date = DateTime.Now;
-        //            Calc_price(Cars_Recived);
-        //            db.SaveChanges();
-        //            return View("bill", Cars_Recived);
-        //        }
-        //        else
-        //        {
-        //            Cars_Recived.End_Book_Date = Cars_Recived.Start_Book_Date;
-        //            Calc_price(Cars_Recived);
-        //            db.SaveChanges();
-        //            return View("bill", Cars_Recived);//display Cancel is Done with no cost 
-        //                                          //    }
-        //    }
-        //    else
-        //        {
-        //            return View();//display Cars is not recirved yet
-        //        }
-
-        //    }
-        public void Calc_price(ReciveDate reciveDate)
+            }
+            catch
+            {
+                return View("Car_Not_Found"); // dispaly Cars is Not Fount 
+            }
+            }
+        
+            public void Calc_price(ReciveDate reciveDate)
         {
             int days_is_recived = reciveDate.End_Recive_Date.Subtract(reciveDate.Start_Recive_Date).Days;
             reciveDate.Total_Cost = days_is_recived * reciveDate.cars.price_in_day;

@@ -93,14 +93,7 @@ new
                 @Html.DisplayFor(modelItem => item.price_in_day)
             </td>
 
-            @*@if (item.Is_reseved == true)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CLIENT.Name)
-                    </td>
-                }*@
-
-
+          
 
             
             <td>
@@ -108,7 +101,7 @@ new
                 @Html.ActionLink("Details", "Details", new { id = item.Car_Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id })|
                 @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }) |
-                @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id })
+                @Html.ActionLink("Cancel Recive", "DetailsCancel", new { id = item.Car_Id })
             </td>
         </tr>
     }

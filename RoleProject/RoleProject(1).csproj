@@ -183,13 +183,20 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agince.cs" />
     <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\Car_And_Properites.cs" />
     <Compile Include="Models\Car_properties.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReciveDate.cs" />
     <Compile Include="Models\RolesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="View Model\cars_and_properties.cs" />
+    <Compile Include="View Model\Dates_For_Car.cs" />
+    <Compile Include="View Model\Recived_Cars_for_Client.cs" />
+    <Compile Include="View Model\Users_in_Role_ViewModel.cs" />
+    <Compile Include="View Model\User_Role.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -285,10 +292,13 @@
     <Content Include="Views\Cars\CancelRecive.cshtml" />
     <Content Include="Views\Cars\bill.cshtml" />
     <Content Include="Views\Cars\Recive_Not_Done_Yet.cshtml" />
+    <Content Include="Views\Aginces\complete_data.cshtml" />
+    <Content Include="Views\Cars\DetailsCancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
