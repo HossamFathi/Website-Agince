@@ -7,13 +7,13 @@ namespace RoleProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class migration : IMigrationMetadata
+    public sealed partial class mymig : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mymig));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908180136110_migration"; }
+            get { return "201908180352117_mymig"; }
         }
         
         string IMigrationMetadata.Source
