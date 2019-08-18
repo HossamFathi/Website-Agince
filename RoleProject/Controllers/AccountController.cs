@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RoleProject.Models;
+using RoleProject.View_Model;
 
 namespace RoleProject.Controllers
 {
@@ -57,17 +58,45 @@ namespace RoleProject.Controllers
         }
 
 
-        public ActionResult List_of_all()
-        {
-           // IdentityRole role = new IdentityRole();
-          //  ViewBag.roles = role.Id;
-            return View(db.Users.ToList());
 
+                // to display all  user with role name
+        public ActionResult UsersWithRoles()
+        {
+
+            var usersWithRoles = (from user in db.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      Username = user.UserName,
+                                      Email = user.Email,
+                                      city=user.city,
+                                      street=user.street,
+                                      phone_number=user.PhoneNumber,
+
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in db.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new Users_in_Role_ViewModel()
+
+                                  {
+                                      UserId = p.UserId,
+                                      Username = p.Username,
+                                      Email = p.Email,
+                                      city = p.city,
+                                      street = p.street,
+                                      phone_number = p.phone_number,
+                                      Role = string.Join(",", p.RoleNames)
+                                  });
+
+            return View(usersWithRoles);
         }
+
+
 
         //eidt
 
-     
+
 
 
 
@@ -188,7 +217,15 @@ namespace RoleProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Roles = new SelectList(context.Roles.ToList(), "Name", "Name");
+          
+
+             if (!User.IsInRole("Admin"))
+                ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name != "Admin").ToList(), "Name", "Name");
+
+            else
+                ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name == "Admin").ToList(), "Name", "Name");
+
+
             return View();
         }
         ApplicationDbContext context = new ApplicationDbContext();
@@ -202,38 +239,54 @@ namespace RoleProject.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-                if (model.Roles == "Client")
+               
+                
+                if (model.Roles == "Client" && ModelState.IsValid)
                 {
-
-
-                 
 
                     Client clinet = new Client();
-                    clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
-                    clinet.Name = model.UserName;
-                    clinet.password = model.Password;
-                    clinet.phone_Number = model.PhoneNumber;
-                    clinet.city = model.city;
-                    clinet.street = model.Street;
-                    context.Client.Add(clinet);
-                    context.SaveChanges();
+
+                    if (db.Client.FirstOrDefault(w => w.Client_ID == model.Id) != null)
+                    {
+                        db.Client.Remove(db.Client.FirstOrDefault(w => w.Client_ID == model.Id));
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
+                        clinet.Name = model.UserName;
+                        clinet.password = model.Password;
+                        clinet.phone_Number = model.PhoneNumber;
+                        clinet.city = model.city;
+                        clinet.street = model.Street;
+                        context.Client.Add(clinet);
+                        context.SaveChanges();
+                    }
+
+                   
                 }
-                else if (model.Roles == "Agince")
+               
+
+                else if (model.Roles == "Agince" && ModelState.IsValid)
                 {
-
                     Agince aganis_Car = new Agince();
-                    aganis_Car.Agince_ID = (model.Id);
-                    aganis_Car.name = model.UserName;
-                    aganis_Car.password = model.Password;
-                    aganis_Car.phone_number = model.PhoneNumber;
-                    aganis_Car.city = model.city;
-                    aganis_Car.street = model.Street;
-
-
-                    context.Agince.Add(aganis_Car);
-                    context.SaveChanges();
+                    if (db.Agince.FirstOrDefault(w => w.Agince_ID == model.Id) != null)
+                    {
+                        db.Agince.Remove(db.Agince.FirstOrDefault(w => w.Agince_ID == model.Id));
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        aganis_Car.Agince_ID = (model.Id);
+                        aganis_Car.name = model.UserName;
+                        aganis_Car.password = model.Password;
+                        aganis_Car.phone_number = model.PhoneNumber;
+                        aganis_Car.city = model.city;
+                        aganis_Car.street = model.Street;
+                        context.Agince.Add(aganis_Car);
+                        context.SaveChanges();
+                    }
+                   
                 }
 
 
@@ -258,9 +311,24 @@ namespace RoleProject.Controllers
 
                     this.UserManager.AddToRole(user.Id, model.Roles);
 
-                    return RedirectToAction("Index", "Home");
+                    if (model.Roles == "Agince")
+                    {
+                        return RedirectToAction("complete_data", "Aginces", new { id = user.Id });
+                    }
+                    else if (model.Roles == "Client")
+                    {
+                        return RedirectToAction("complete_data", "Clients", new { id = user.Id });
+                    }
+                    else
+                        return RedirectToAction("UsersWithRoles");
+
                 }
-                ViewBag.Roles = new SelectList(context.Roles.ToList(), "Name", "Name");
+
+                if (!User.IsInRole("Admin"))
+                    ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name != "Admin").ToList(), "Name", "Name");
+
+                else
+                    ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name == "Admin").ToList(), "Name", "Name"); ;
                 AddErrors(result);
             }
 

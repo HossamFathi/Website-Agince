@@ -20,7 +20,7 @@ namespace RoleProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cars
-        [Authorize(Roles = "Client , Agince")]
+        //[Authorize(Roles = "Client , Agince")]
         public ActionResult List_Of_All()
         {
             var cars = db.Cars.ToList();
@@ -45,31 +45,49 @@ namespace RoleProject.Controllers
         {
 
             var cars = new List<Car>();
-
-            switch (num)
+            var car2 = new Car();
+            if (num == 1)
             {
-
-                case 1:
-                    cars = (from n in db.Cars
-                            where n.Type_Of_Car.Contains(searchItem)
-                            select n).ToList();
-                    break;
-                case 2:
-                    cars = (from n in db.Cars
-                            where n.Car_Model.Contains(searchItem)
-                            select n).ToList();
-                    break;
-                case 3:
-                    cars = (from n in db.Cars
-                            where n.Car_Brand.Contains(searchItem)
-                            select n).ToList();
-                    break;
+                cars = (from n in db.Cars
+                        where n.Type_Of_Car.Contains(searchItem)
+                        select n).ToList();
+                return View("List_Of_All", cars);
             }
 
-            return View("List_Of_All", cars);
 
-        }
+            else if (num == 2)
+            {
+                cars = (from n in db.Cars
+                        where n.Car_Model.Contains(searchItem)
+                        select n).ToList();
+                return View("List_Of_All", cars);
+            }
 
+            else if (num == 3)
+            {
+                cars = (from n in db.Cars
+                        where n.Car_Brand.Contains(searchItem)
+                        select n).ToList();
+                return View("List_Of_All", cars);
+            }
+
+            else if (num == 4)
+            {
+                int Chassis_No = Convert.ToInt32(searchItem);
+                car2 = (db.Cars.FirstOrDefault(e => e.Chassis_No == Chassis_No));
+                return View("List_Of_All", car2);
+            }
+           else
+            {
+                return View("Car_Not_Found");
+
+
+            }
+        }  
+
+           
+
+        
         //sorting
         [AllowAnonymous]
 
@@ -173,7 +191,7 @@ namespace RoleProject.Controllers
 
 
         // GET: Cars/Create
-        [Authorize(Roles = "Agince")]
+        //[Authorize(Roles = "Agince")]
         public ActionResult Create()
         {
          
@@ -184,7 +202,7 @@ namespace RoleProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Agince")]
+        //[Authorize(Roles = "Agince")]
 
         public ActionResult Create(Car car)
         {

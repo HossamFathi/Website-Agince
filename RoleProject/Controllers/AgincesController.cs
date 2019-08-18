@@ -88,7 +88,7 @@ namespace RoleProject.Controllers
             return View("Details", c);
         }
 
-
+        
 
 
         // GET: Aginces/Details/5
@@ -136,6 +136,55 @@ namespace RoleProject.Controllers
 
             return View(agince);
         }
+
+
+        // GET: Aginces/complete_data
+        public ActionResult complete_data(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Agince agince = db.Agince.Find(id);
+            if (agince == null)
+            {
+                return HttpNotFound();
+            }
+            return View(agince);
+        }
+
+        // POST: Aginces/complete_data
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult complete_data(String id, Agince agince)
+        {
+
+            try
+            {
+                var newAgince = db.Agince.FirstOrDefault(agince_ => agince_.Agince_ID == id);
+
+                if (agince.photo_path != null)
+                {
+                   
+                    /*Add photo to Data Base*/
+                    string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
+                    string Extintion = Path.GetExtension(agince.photo_path.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+                    newAgince.photo_Agince = filename;
+                    filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                    agince.photo_path.SaveAs(filename);
+                    //----------------------------/
+                }
+                db.SaveChanges();
+                return RedirectToAction("List_Of_All");
+            }
+            catch
+            {
+                return View("complete_data");
+            }
+        }
+
 
         // GET: Aginces/Edit/5
         public ActionResult Edit(string id)

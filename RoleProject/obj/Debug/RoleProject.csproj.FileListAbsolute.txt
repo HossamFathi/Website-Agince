@@ -639,7 +639,12 @@ C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\Role
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.csproj.CopyComplete
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.dll
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.pdb
-C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.Migrations.mymig.resources
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration.resources
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
+<<<<<<< HEAD
+=======
+G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration1.resources
+C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.Migrations.migration.resources
+C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.Migrations.migration1.resources
+>>>>>>> bbfcca00f8948bd2ae332f75031ce15ed2a6797a

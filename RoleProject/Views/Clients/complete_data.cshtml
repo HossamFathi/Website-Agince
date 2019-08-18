@@ -1,0 +1,16 @@
+﻿@model RoleProject.Models.Client
+
+
+
+@using (Html.BeginForm("complete_data", "Clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.photo_path, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="photo_path" id="photo_path" />
+
+        </div>
+    </div>
+
+    <input type="submit" value="save" class="form-control" />
+}
