@@ -55,36 +55,21 @@
             @Html.DisplayFor(model => model.price_in_day)
         </dd>
 
+
         <dt>
-            @Html.DisplayNameFor(model => model.price_Total)
+            Start Reciving Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.price_Total)
+            @ViewBag.startDate
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Is_reseved)
+            Start End Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Is_reseved)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start_Book_Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_Book_Date)
+            @ViewBag.endDate
         </dd>
 
         <dt>
@@ -95,12 +80,12 @@
             @Html.DisplayFor(model => model.Agince_Of_Car.name))
         </dd>
 
-       <dt>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
+        <dt>
+           Client
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
+            @ViewBag.client
         </dd>
 
 

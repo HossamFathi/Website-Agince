@@ -60,32 +60,9 @@
 
        
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Is_reseved, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Is_reseved)
-                    @Html.ValidationMessageFor(model => model.Is_reseved, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+     
 
-        <div class="form-group">
-                @Html.LabelFor(model => model.Start_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Start_Book_Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Start_Book_Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        <div class="form-group">
-                @Html.LabelFor(model => model.End_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.End_Book_Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.End_Book_Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
+       
         <div class="form-group">
             @*@Html.LabelFor(model => model.Agince_Of_Car, "aganis_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
@@ -93,18 +70,7 @@
                 @Html.ValidationMessageFor(model => model.Agince_Of_Car.Agince_ID, "", new { @class = "text-danger" })
             </div>
         </div>
-        @if (Model.Is_reseved == true)
-        {
-
-            <div class="form-group">
-               @*@Html.LabelFor(model => model.CLIENT, "Clinet_id", htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => model.CLIENT.Client_ID)
-                    @Html.ValidationMessageFor(model => model.CLIENT.Client_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
-
+       
 
         <div class="form-group">
             @Html.LabelFor(model => model.photo_path, htmlAttributes: new { @class = "control-label col-md-2" })

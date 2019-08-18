@@ -13,8 +13,9 @@ namespace RoleProject.Models
     {
         public Client()
         {
-            Booked_Car = new Collection<Car>();
+            Booked_Car = new Collection<ReciveDate>();
         }
+      
         [Required]
         public string Name { get; set; }
         [Key]
@@ -52,7 +53,7 @@ namespace RoleProject.Models
         [Display(Name = "Date of Licience expiry")]
 
         public Nullable<DateTime> date_of_licience_expiry { get; set; }
-        public Collection<Car> Booked_Car { get; set; }
+        public ICollection<ReciveDate> Booked_Car { get; set; }
         public string photo_Client { get; set; }
         [NotMapped]
         public HttpPostedFileBase photo_path { get; set; }

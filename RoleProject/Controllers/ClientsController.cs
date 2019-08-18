@@ -110,7 +110,7 @@ namespace RoleProject.Controllers
             Recived_Cars_for_Client recived_Cars_For_Client = new Recived_Cars_for_Client();
             Client clinet = db.Client.FirstOrDefault(client_ => client_.Client_ID == id);
           
-            recived_Cars_For_Client.cars = db.Cars.Where(car => car.CLIENT.Client_ID == clinet.Client_ID).ToList();
+            //recived_Cars_For_Client.cars = db.Cars.Where(car => car.CLIENT.Client_ID == clinet.Client_ID).ToList();
             ViewBag.recived_Cars_For_Client = recived_Cars_For_Client.cars;
             if (clinet == null)
             {

@@ -3,7 +3,8 @@
 
 @{
     ViewBag.Title = "Details";
-   cars_and_properties list_of_properties = ViewBag.list_of_properties;
+    cars_and_properties list_of_properties = ViewBag.list_of_properties;
+    Dates_For_Car Dates = ViewBag.list_of_Recived_Date;
 }
 
 <h2>Details</h2>
@@ -60,67 +61,76 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.price_Total)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price_Total)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Is_reseved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Is_reseved)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start_Book_Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_Book_Date)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Agince_Of_Car.name))
-        </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
+
+            @Html.DisplayFor(model => model.Agince_Of_Car.name)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Additional_properties)
-        </dt>
-        @foreach (var cars in list_of_properties.Property_Name)
-        {
-           <dd>@cars</dd>  
-        }
-        <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
-        </dd>
+
 
 
 
     </dl>
 </div>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Properties
+        </th>
+    </tr>
+    <tr>
+        @foreach (var properities in list_of_properties.Property_Name)
+        {
+        <td>
+        @properities
+        </td>
+         }
+     </tr>
+
+    </table>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                Start  Recived  Date
+            </th>
+            <th>
+                End Recived Date
+            </th>
+            <th>
+                Client
+            </th>
+        </tr>
+        <tr>
+            @foreach (var start in Dates.Start_Recive)
+            {
+            <td>
+                @start
+            </td>
+
+        }
+            @foreach (var End in Dates.End_Recive)
+            {
+                <td>
+                    @End
+                </td>
+
+            }
+            @foreach (var client in Dates.Clients)
+            {
+                <td>
+                    @client.Name
+                </td>
+
+            }
+            </tr>
+
+
+
+
+        </table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Car_Id }) |
     @Html.ActionLink("Back to List", "List_Of_All")

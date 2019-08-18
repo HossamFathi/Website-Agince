@@ -58,61 +58,22 @@
             @Html.DisplayFor(model => model.price_in_day)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.price_Total)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price_Total)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Is_reseved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Is_reseved)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start_Book_Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End_Book_Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_Book_Date)
-        </dd>
-
+       
         <dt>
             @Html.DisplayNameFor(model => model.Agince_Of_Car.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Agince_Of_Car.name))
+            @Html.DisplayFor(model => model.Agince_Of_Car.name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENT.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENT.Name)
-        </dd>
-
-
+        
 
 
     </dl>
 </div>
 <div>
-    @using (Html.BeginForm("Details", "Clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("List_Of_all", "Cars", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
     {
         @Html.AntiForgeryToken()

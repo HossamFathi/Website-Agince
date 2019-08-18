@@ -102,17 +102,7 @@ new
 
 
 
-            <td>
-                @if (item.Is_reseved == false)
-                {
-                    <div style="background:red; height:100px; width:100px;">  </div>
-
-                }
-                else
-                {
-                    <div style="background:blue ; height:100px; width:100px;">  </div>
-                }
-            </td>
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Car_Id }) |

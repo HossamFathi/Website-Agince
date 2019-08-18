@@ -643,4 +643,3 @@ C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\Role
 C:\Users\LEGION\Desktop\New folder (2)\Website-Agince\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration.resources
 G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.csproj.GenerateResource.cache
-G:\TTTTT\ttttttt\RoleProject\obj\Debug\RoleProject.Migrations.migration1.resources

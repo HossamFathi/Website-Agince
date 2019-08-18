@@ -8,19 +8,20 @@
 @using (Html.BeginForm("Recive", "Cars", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <div class="form-group">
-        @Html.LabelFor(model => model.Start_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="datetime" name="Start_Book_Date" id="Start_Book_Date" class="form-control" />
-            @Html.ValidationMessageFor(model => model.Start_Book_Date, "", new { @class = "text-danger" })
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-2">Start Recive Date</label>
+    <div class="col-md-10">
+        <input type="datetime" name="Start_Recive_Date" id="Start_Recive_Date" class="form-control" />
+       
     </div>
+</div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.End_Book_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+       
+        <label class="control-label col-md-2">End Recive Date</label>
         <div class="col-md-10">
-            <input type="datetime" name="End_Book_Date" id="End_Book_Date" class="form-control" />
-            @Html.ValidationMessageFor(model => model.End_Book_Date, "", new { @class = "text-danger" })
+            <input type="datetime" name="End_Recive_Date" id="End_Recive_Date" class="form-control" />
+           
         </div>
     </div>
     <div class="form-group">

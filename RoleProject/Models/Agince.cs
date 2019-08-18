@@ -11,6 +11,10 @@ namespace RoleProject.Models
 {
     public class Agince
     {
+        public Agince()
+        {
+            Collection_Of_Car = new Collection<Car>();
+        }
         [Key]
         [Required]
         public String Agince_ID { get; set; }

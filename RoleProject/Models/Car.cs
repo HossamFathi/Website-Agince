@@ -12,8 +12,9 @@ namespace RoleProject.Models
     {
         public Car()
         {
-            Additional_properties = new List<Car_properties>();
+            reciveDates = new Collection<ReciveDate>();
         }
+       
         [Key]
         [Required]
         [Display(Name = "Car Number")]
@@ -36,28 +37,23 @@ namespace RoleProject.Models
         [Display(Name = "Chassis number")]
 
         public int Chassis_No { get; set; }
-        [Display(Name = "Date of book")]
+        
 
-        public DateTime Start_Book_Date { get; set; }
-        [Display(Name = "Date of finish Book")]
-
-        public DateTime End_Book_Date { get; set; }
         [Required]
         [Display(Name = "Price per day")]
 
         public double price_in_day { get; set; }
-        public Nullable<double> price_Total { get; set; }
-        [Display(Name = "Booked")]
+ 
+       
         
-        public bool Is_reseved { get; set; } 
-        [ForeignKey("Car_no")]
-        public List<Car_properties> Additional_properties { get; set; }
+       
+        public virtual ICollection<Car_And_Properites> Additional_properties { get; set; }
         public string photo_Car { get; set; }
         [NotMapped]
         public HttpPostedFileBase photo_path { get; set; }
-        
-        public Client CLIENT { get; set; }
-       
+
+
+        public ICollection<ReciveDate> reciveDates { get; set; }
         public Agince Agince_Of_Car { get; set; }
 
     }
