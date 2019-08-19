@@ -80,15 +80,19 @@ namespace RoleProject.Controllers
             //else 
             if (User.IsInRole("Agince"))
             {
-                return RedirectToAction("Details", "Aginces", new { id= userId });
+                return RedirectToAction("Details", "Aginces", new { id = userId });
             }
             else if (User.IsInRole("Client"))
             {
                 return RedirectToAction("Details", "Clients", new { id = userId });
             }
+
+            else if (User.IsInRole("Admin")) {
+                return RedirectToAction("Index");
+            }
             else return RedirectToAction("Index");
         }
-          
+
 
         //
         // POST: /Manage/RemoveLogin

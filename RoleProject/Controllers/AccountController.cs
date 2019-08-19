@@ -58,9 +58,23 @@ namespace RoleProject.Controllers
             }
         }
 
+        //Details
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
 
 
-                // to display all  user with role name
+        // to display all  user with role name
         public ActionResult UsersWithRoles()
         {
 
@@ -218,14 +232,13 @@ namespace RoleProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-          
 
-             if (!User.IsInRole("Admin"))
+
+            if (!User.IsInRole("Admin"))
                 ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name != "Admin").ToList(), "Name", "Name");
 
             else
                 ViewBag.Roles = new SelectList(context.Roles.Where(e => e.Name == "Admin").ToList(), "Name", "Name");
-
 
             return View();
         }

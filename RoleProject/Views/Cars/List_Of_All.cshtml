@@ -13,6 +13,7 @@
 
 
 </p>
+
 @* sorting *@
 
 @Ajax.ActionLink("sorting", "sorting", "Cars", new AjaxOptions
@@ -124,24 +125,42 @@ new
 
 
     <td>
-        @if (User.IsInRole("Agince"))
+        @if (User.IsInRole("Client"))
         {
+
+            @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
+     new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+
+            @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }, htmlAttributes:
+                     new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+            @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id }, htmlAttributes:
+                    new { @class = "btn btn-warning", style = "border-radius:50%" })<p>|</p>
+
+        }
+        else if (User.IsInRole("Agince"))
+
+        {
+            @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
+              new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+
             @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }, htmlAttributes:
-                          new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
+                     new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
 
             @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id }, htmlAttributes:
-               new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
+                    new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
+
+
         }
+        else
+        { @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
+            new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+    }
 
 
-        @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
-       new { @class = "btn btn-warning", style = "border-radius:50%" }) |
 
 
-        @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }, htmlAttributes:
-       new { @class = "btn btn-warning", style = "border-radius:50%" }) |
-        @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id }, htmlAttributes:
-       new { @class = "btn btn-warning", style = "border-radius:50%" })
+
+
     </td>
 </tr>
     }

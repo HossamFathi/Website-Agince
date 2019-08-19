@@ -67,7 +67,6 @@ namespace RoleProject.Controllers
 
         // search
         [AllowAnonymous]
-
         public ActionResult Search(string searchItem) {
 
   
@@ -88,7 +87,6 @@ namespace RoleProject.Controllers
                         select n).ToList();
                 return View("List_Of_All", cars);
             }
-
 
             else if (num == 2)
             {

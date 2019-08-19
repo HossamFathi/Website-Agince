@@ -349,6 +349,7 @@
     <Content Include="Views\Shared\_CustomLayout.cshtml" />
     <Content Include="Views\Shared\_filter_Car.cshtml" />
     <Content Include="Views\Shared\_Search_Aginces_Partial.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
