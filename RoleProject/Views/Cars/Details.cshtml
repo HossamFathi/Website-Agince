@@ -84,55 +84,65 @@
     <tr>
         @foreach (var properities in list_of_properties.Property_Name)
         {
-        <td>
-        @properities
-        </td>
-         }
-     </tr>
+            <td>
+                @properities
+            </td>
+        }
+    </tr>
 
-    </table>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                Start  Recived  Date
-            </th>
-            <th>
-                End Recived Date
-            </th>
-            <th>
-                Client
-            </th>
-        </tr>
-        <tr>
-            @foreach (var start in Dates.Start_Recive)
-            {
+</table>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Start  Recived  Date
+        </th>
+        <th>
+            End Recived Date
+        </th>
+        <th>
+            Client
+        </th>
+    </tr>
+    <tr>
+        @foreach (var start in Dates.Start_Recive)
+        {
             <td>
                 @start
             </td>
 
         }
-            @foreach (var End in Dates.End_Recive)
-            {
-                <td>
-                    @End
-                </td>
+        @foreach (var End in Dates.End_Recive)
+        {
+            <td>
+                @End
+            </td>
 
-            }
-            @foreach (var client in Dates.Clients)
-            {
-                <td>
-                    @client.Name
-                </td>
+        }
+        @foreach (var client in Dates.Clients)
+        {
+            <td>
+                @client.Name
+            </td>
 
-            }
-            </tr>
-
-
+        }
+    </tr>
 
 
-        </table>
+
+
+</table>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Car_Id }) |
+
+    @if (User.IsInRole("Agince"))
+    {
+       
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Car_Id });
+                                      <p>|</p>
+
+}
+
+
+
     @Html.ActionLink("Back to List", "List_Of_All")
-</p>
+

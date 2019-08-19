@@ -13,6 +13,8 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
+    [Authorize(Roles = "Agince,Admin")]
+
     public class ClientsController : Controller
     {
 
@@ -20,6 +22,8 @@ namespace RoleProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinets
+        [Authorize(Roles = "Agince,Admin")]
+
         public ActionResult List_Of_All()
         {
             return View(db.Client.ToList());
@@ -27,14 +31,12 @@ namespace RoleProject.Controllers
 
         //Search
 
-        [AllowAnonymous]
-
         public ActionResult Search(string searchItem)
         {
 
             return PartialView("_Search_Client_Partial");
         }
-        [AllowAnonymous]
+  
 
         public ActionResult Go_Search(string searchItem)
         {
@@ -120,35 +122,35 @@ namespace RoleProject.Controllers
         }
 
         // GET: Clinets/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Clinets/Create
+        //// POST: Clinets/Create
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Client client)
-        {
-            if (ModelState.IsValid)
-            {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(Client client)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
 
-                /*Add photo to Data Base*/
-                string filename = Path.GetFileNameWithoutExtension(client.photo_path.FileName);
-                string Extintion = Path.GetExtension(client.photo_path.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                client.photo_Client = filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                client.photo_path.SaveAs(filename);
-                //----------------------------//
-                db.Client.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("List_Of_All");
-            }
+        //        /*Add photo to Data Base*/
+        //        string filename = Path.GetFileNameWithoutExtension(client.photo_path.FileName);
+        //        string Extintion = Path.GetExtension(client.photo_path.FileName);
+        //        filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+        //        client.photo_Client = filename;
+        //        filename = Path.Combine(Server.MapPath("~/images/"), filename);
+        //        client.photo_path.SaveAs(filename);
+        //        //----------------------------//
+        //        db.Client.Add(client);
+        //        db.SaveChanges();
+        //        return RedirectToAction("List_Of_All");
+        //    }
 
-            return View(client);
-        }
+        //    return View(client);
+        //}
 
         // GET: Clinets/Edit/5
         public ActionResult Edit(string id)

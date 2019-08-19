@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -157,7 +158,7 @@ namespace RoleProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("List_Of_All","Cars");// my change
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -319,7 +320,7 @@ namespace RoleProject.Controllers
                     {
                         return RedirectToAction("complete_data", "Clients", new { id = user.Id });
                     }
-                    else
+                    else if(model.Roles == "Admin")
                         return RedirectToAction("UsersWithRoles");
 
                 }
@@ -335,6 +336,83 @@ namespace RoleProject.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+
+              [AllowAnonymous]
+        public ActionResult sorting()
+        {
+            return PartialView("_Sorting_Users_Partial");
+        }
+        [AllowAnonymous]
+        public ActionResult Go_sorting(int? num)
+        {
+
+
+            if (num == null)
+            {
+
+                return RedirectToAction("UsersWithRoles");
+
+            }
+            else
+
+            {
+
+                var agince = new List<ApplicationUser>();
+                switch (num)
+                {
+
+                    case 1:
+                        agince = db.Users.OrderByDescending(e => e.UserName).ToList();
+                        break;
+                    case 2:
+                        agince = db.Users.OrderBy(e => e.city).ToList();
+                        break;
+                    case 3:
+                        agince = db.Users.OrderBy(e => e.street).ToList();
+
+                        break;
+                    case 4:
+                        agince = db.Users.OrderBy(e => e.Roles).ToList();
+
+                        break;
+
+
+                }
+
+
+
+                return RedirectToAction("UsersWithRoles", agince);
+            }
+        }
+
+
+
+
+        // Serach
+        [AllowAnonymous]
+        public ActionResult Search(string searchItem)
+        {
+
+
+            return PartialView("_Search_Users_Partial");
+        }
+        [AllowAnonymous]
+
+        public ActionResult Go_Search(string searchItem)
+        {
+
+            var c = db.Users.FirstOrDefault(v => v.Id == searchItem);
+            if (c == null)
+            {
+                return View("SearchError");// go to error page
+
+            }
+            else
+                return RedirectToAction("Details","Aginces", c);
+        }
+
 
         //
         // GET: /Account/ConfirmEmail
@@ -573,7 +651,7 @@ namespace RoleProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //

@@ -168,16 +168,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AginceController.cs" />
     <Compile Include="Controllers\AgincesController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\Car_propertiesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\desginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908181044511_mymig.cs" />
+    <Compile Include="Migrations\201908181044511_mymig.Designer.cs">
+      <DependentUpon>201908181044511_mymig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -199,16 +203,58 @@
     <Compile Include="View Model\User_Role.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\css\fontawesome-all.min.css" />
+    <Content Include="Content\assets\css\main.css" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\assets\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\assets\webfonts\fa-solid-900.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\first_train.css" />
+    <Content Include="Content\bg01.jpg" />
+    <Content Include="Content\images\1-19.jpg" />
+    <Content Include="Content\images\bg02.jpg" />
+    <Content Include="Content\images\bg03.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\sass\base\_bg.scss" />
+    <Content Include="Content\assets\sass\base\_page.scss" />
+    <Content Include="Content\assets\sass\base\_reset.scss" />
+    <Content Include="Content\assets\sass\base\_typography.scss" />
+    <Content Include="Content\assets\sass\components\_button.scss" />
+    <Content Include="Content\assets\sass\components\_form.scss" />
+    <Content Include="Content\assets\sass\components\_icon.scss" />
+    <Content Include="Content\assets\sass\components\_icons.scss" />
+    <Content Include="Content\assets\sass\components\_list.scss" />
+    <Content Include="Content\assets\sass\components\_section.scss" />
+    <Content Include="Content\assets\sass\layout\_footer.scss" />
+    <Content Include="Content\assets\sass\layout\_header.scss" />
+    <Content Include="Content\assets\sass\layout\_signup-form.scss" />
+    <Content Include="Content\assets\sass\libs\_breakpoints.scss" />
+    <Content Include="Content\assets\sass\libs\_functions.scss" />
+    <Content Include="Content\assets\sass\libs\_mixins.scss" />
+    <Content Include="Content\assets\sass\libs\_vars.scss" />
+    <Content Include="Content\assets\sass\libs\_vendor.scss" />
+    <Content Include="Content\assets\sass\main.scss" />
+    <Content Include="Content\assets\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\assets\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\assets\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\assets\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\assets\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\assets\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\assets\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\assets\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\assets\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\assets\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\assets\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\assets\webfonts\fa-solid-900.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -233,9 +279,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -256,12 +299,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Agince\Create.cshtml" />
-    <Content Include="Views\Agince\Details.cshtml" />
-    <Content Include="Views\Agince\Edit.cshtml" />
-    <Content Include="Views\Agince\Edit1.cshtml" />
-    <Content Include="Views\Agince\Index.cshtml" />
-    <Content Include="Views\Agince\Delete.cshtml" />
     <Content Include="Views\Cars\Create.cshtml" />
     <Content Include="Views\Cars\Details.cshtml" />
     <Content Include="Views\Cars\Delete.cshtml" />
@@ -293,7 +330,7 @@
     <Content Include="Views\Shared\_Search_Car_Partial.cshtml" />
     <Content Include="Views\Account\List_Of_All.cshtml" />
     <Content Include="Views\Shared\_Search_Client_Partial.cshtml" />
-    <Content Include="Views\Shared\_Search_Aginces_Partial.cshtml" />
+    <Content Include="Views\Shared\_Search_Users_Partial.cshtml" />
     <Content Include="Views\Shared\SearchError.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Shared\_startPage_partial.cshtml" />
@@ -307,6 +344,11 @@
     <Content Include="Views\Account\UsersWithRoles.cshtml" />
     <Content Include="Views\Aginces\complete_data.cshtml" />
     <Content Include="Views\Clients\complete_data.cshtml" />
+    <Content Include="Views\Shared\_start.cshtml" />
+    <Content Include="Views\desgin\start.cshtml" />
+    <Content Include="Views\Shared\_CustomLayout.cshtml" />
+    <Content Include="Views\Shared\_filter_Car.cshtml" />
+    <Content Include="Views\Shared\_Search_Aginces_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +366,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908181044511_mymig.resx">
+      <DependentUpon>201908181044511_mymig.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

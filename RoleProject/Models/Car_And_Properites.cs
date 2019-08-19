@@ -13,10 +13,10 @@ namespace RoleProject.Models
         [Key]
         
         [Column(Order =1)]
-        public int Car_Id { get; set; }
+        public int Car_Id { get; set; } // car id
         [Key]
         [Column(Order =2)]
-        public int id { get; set; }
+        public int id { get; set; } // prop id 
 
         public Car Cars { get; set; }
         public Car_properties properties { get; set; }

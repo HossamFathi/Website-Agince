@@ -10,10 +10,12 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
+    [Authorize(Roles ="Agince")]
     public class Car_propertiesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [AllowAnonymous]
         // GET: Car_properties
         public ActionResult List_Of_all(Car car)
         {
@@ -23,19 +25,19 @@ namespace RoleProject.Controllers
         }
 
         // GET: Car_properties/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Car_properties car_properties = db.Car_properties.Find(id);
-            if (car_properties == null)
-            {
-                return HttpNotFound();
-            }
-            return View(car_properties);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Car_properties car_properties = db.Car_properties.Find(id);
+        //    if (car_properties == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(car_properties);
+        //}
 
         // GET: Car_properties/Create
         public ActionResult Create()

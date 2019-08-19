@@ -29,7 +29,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" , Placeholder="Name"} })
             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.city, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control" , Placeholder="City"} })
             @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -45,7 +45,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control" , Placeholder="PhoneNumber"} })
             @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger" })
         </div>
     </div>

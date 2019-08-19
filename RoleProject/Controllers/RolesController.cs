@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace RoleProject.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class RolesController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();

@@ -11,22 +11,25 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
+    //[Authorize(Roles ="Agince")]
     public class AgincesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+        [AllowAnonymous]
         // GET: Aginces
         public ActionResult List_Of_All()
         {
             return View(db.Agince.ToList());
         }
 
-
+        [AllowAnonymous]
         public ActionResult sorting()
         {
             return PartialView("_Sorting_Agince_Partial");
         }
-
+        [AllowAnonymous]
         public ActionResult Go_sorting(int? num)
         {
 
@@ -66,7 +69,7 @@ namespace RoleProject.Controllers
         }
 
 
-
+        [AllowAnonymous]
         public ActionResult Search(string searchItem)
         {
 
@@ -75,11 +78,11 @@ namespace RoleProject.Controllers
             return PartialView("_Search_Aginces_Partial");
         }
         [AllowAnonymous]
-
+     
         public ActionResult Go_Search(string searchItem)
         {
 
-            var c = db.Agince.FirstOrDefault(v => v.Agince_ID == searchItem);
+            var c = db.Users.FirstOrDefault(v => v.Id == searchItem);
             if (c == null) {
                 return View("SearchError");// go to error page
 
@@ -106,36 +109,36 @@ namespace RoleProject.Controllers
             return View(agince);
         }
 
-        // GET: Aginces/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: Aginces/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Aginces/Create
+        //// POST: Aginces/Create
      
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create( Agince agince)
-        {
-            if (ModelState.IsValid)
-            {
-                /*Add photo to Data Base*/
-                string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
-                string Extintion = Path.GetExtension(agince.photo_path.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
-                agince.photo_Agince = filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                agince.photo_path.SaveAs(filename);
-                //----------------------------//
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create( Agince agince)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        /*Add photo to Data Base*/
+        //        string filename = Path.GetFileNameWithoutExtension(agince.photo_path.FileName);
+        //        string Extintion = Path.GetExtension(agince.photo_path.FileName);
+        //        filename = filename + DateTime.Now.ToString("yymmssfff") + Extintion;
+        //        agince.photo_Agince = filename;
+        //        filename = Path.Combine(Server.MapPath("~/images/"), filename);
+        //        agince.photo_path.SaveAs(filename);
+        //        //----------------------------//
 
-                db.Agince.Add(agince);
-                db.SaveChanges();
-                return RedirectToAction("List_Of_All");
-            }
+        //        db.Agince.Add(agince);
+        //        db.SaveChanges();
+        //        return RedirectToAction("List_Of_All");
+        //    }
 
-            return View(agince);
-        }
+        //    return View(agince);
+        //}
 
 
         // GET: Aginces/complete_data

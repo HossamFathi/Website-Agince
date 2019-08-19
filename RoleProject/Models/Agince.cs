@@ -41,7 +41,9 @@ namespace RoleProject.Models
         public string phone_number { get; set; }
    
         public string city { get; set; }
-    
+        //[Display(Name = "Total profits")]
+        //public double Profits { get; set; }
+
         public string street { get; set; }
         [Display(Name ="photo of Agince")]
         public string photo_Agince { get; set; }

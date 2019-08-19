@@ -78,13 +78,13 @@ namespace RoleProject.Controllers
             //    return RedirectToAction("Details", "Agince", new { id });
             //}
             //else 
-            if (UserManager.GetRoles(userId).Contains("Agince"))
+            if (User.IsInRole("Agince"))
             {
-                return RedirectToAction("Details", "Agince", new { id });
+                return RedirectToAction("Details", "Aginces", new { id= userId });
             }
-            else if (UserManager.GetRoles(userId).Contains("Client"))
+            else if (User.IsInRole("Client"))
             {
-                return RedirectToAction("Details", "Clients", new { id });
+                return RedirectToAction("Details", "Clients", new { id = userId });
             }
             else return RedirectToAction("Index");
         }

@@ -8,38 +8,41 @@
 
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 
 
 @* sorting *@
 
 @Ajax.ActionLink("sorting", "sorting", "Aginces", new AjaxOptions
-{
-    HttpMethod = "get",
-    UpdateTargetId = "create_2",
-    InsertionMode = InsertionMode.Replace
-},
-new
-{
-     @class = "text-danger",
+    {
+        HttpMethod = "get",
+        UpdateTargetId = "create_2",
+        InsertionMode = InsertionMode.Replace
+    },
+    new
+    {
+        @class = "btn btn-danger",
 
-})
+    })
 
-@* search *@
-@Ajax.ActionLink("Search", "Search", "Aginces", new AjaxOptions
-{
-    HttpMethod = "get",
-    UpdateTargetId = "create_2",
-    InsertionMode = InsertionMode.Replace
-},
-new
-{
-     @class = "text-danger",
+     @*search*@
+    @Ajax.ActionLink("Search", "Search", "Aginces", new AjaxOptions
+    {
+        HttpMethod = "get",
+        UpdateTargetId = "create_2",
+        InsertionMode = InsertionMode.Replace
+    },
+    new
+    {
+        @class = "btn btn-danger",
 
-})
-<div id="create_2"></div>
+    })
+    <div id="create_2"></div>
+
+@*@Html.Partial("_Search_Aginces_Partial")<br/><br/>
+@Html.Partial("_Sorting_Agince_Partial")*@
 <table class="table">
     <tr>
         <th>
@@ -68,35 +71,39 @@ new
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Agince_ID)
-    </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.password)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.phone_number)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.city)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.street)
-    </td>
-    <td>
-        <img src="~/images/@item.photo_Agince" />
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Agince_ID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Agince_ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Agince_ID })
-    </td>
-</tr>
+
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agince_ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.street)
+            </td>
+            <td>
+                <img src="~/images/@item.photo_Agince" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Agince_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Agince_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Agince_ID })
+            </td>
+        </tr>
     }
 
 </table>

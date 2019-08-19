@@ -13,14 +13,14 @@ using RoleProject.View_Model;
 
 namespace RoleProject.Controllers
 {
-    //[Authorize(Roles = "Agince , Admin")]
+    
 
     public class CarsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cars
-        //[Authorize(Roles = "Client , Agince")]
+       [AllowAnonymous]
         public ActionResult List_Of_All()
         {
             var cars = db.Cars.ToList();
@@ -28,6 +28,41 @@ namespace RoleProject.Controllers
         }
 
         //List<int> numbers = new List<int>();
+
+        [AllowAnonymous]
+        public ActionResult filter()
+        {
+         
+            return PartialView("_filter_Car", db.Car_properties.ToList());
+        }
+        [AllowAnonymous]
+        public ActionResult go_filter(String prop_name)
+        {
+
+            //int prop_id = Convert.ToInt32((from w in db.Car_properties
+            //                               where w.proprity_Name == prop_name
+            //                               select w.id));
+
+
+            int prop_id = db.Car_properties.FirstOrDefault(e => e.proprity_Name == prop_name).id;
+
+
+            var carsIds = (from e in db.Car_And_Properites
+                           where e.id == prop_id
+                           select e.Car_Id).ToList();
+
+            List<Car> cars = new List<Car>();
+            foreach (var item in carsIds)
+            {
+                Car res = db.Cars.FirstOrDefault(e => e.Car_Id == item);
+                cars.Add(res);
+
+            }
+
+            return View("List_Of_All", cars);
+
+
+        }
 
 
         // search
@@ -114,7 +149,10 @@ namespace RoleProject.Controllers
                 var cars = new List<Car>();
                 switch (num) {
 
-                 
+                    case 1:
+               
+                        cars = db.Cars.OrderBy(e => e.reciveDates).ToList();
+                        break;
                     case 2:
                         cars = db.Cars.OrderBy(e => e.price_in_day).ToList();
                         break;
@@ -197,6 +235,7 @@ namespace RoleProject.Controllers
 
         // GET: Cars/Create
         //[Authorize(Roles = "Agince")]
+        [Authorize(Roles = "Agince")]
         public ActionResult Create()
         {
          
@@ -207,7 +246,7 @@ namespace RoleProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Agince")]
+        [Authorize(Roles = "Agince")]
 
         public ActionResult Create(Car car)
         {
@@ -240,6 +279,7 @@ namespace RoleProject.Controllers
                 return View(car);
             }
         }
+        [Authorize(Roles = "Agince")]
         public ActionResult Add_properity(int? id)
         {
             Car car;
@@ -258,6 +298,8 @@ namespace RoleProject.Controllers
         }
 
 
+        [Authorize(Roles = "Agince")]
+
         // GET: Cars/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -275,6 +317,7 @@ namespace RoleProject.Controllers
         // POST: Cars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Agince")]
         public ActionResult Edit(int? id,Car car)
         {
 
@@ -312,7 +355,7 @@ namespace RoleProject.Controllers
                 return View(car);
             }
         }
-
+        [Authorize(Roles = "Agince")]
         // GET: Cars/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -330,6 +373,7 @@ namespace RoleProject.Controllers
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Agince")]
         public ActionResult DeleteConfirmed(int id)
         {
             Car car = db.Cars.Find(id);
@@ -361,6 +405,7 @@ namespace RoleProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Agince")]
         public ActionResult Recive(int? Car_Id, DateTime Start_Recive_Date, DateTime End_Recive_Date)
         {
             
@@ -421,10 +466,13 @@ namespace RoleProject.Controllers
 
 
         }
+        [Authorize(Roles = "Client,Agince")]
         public ActionResult DetailsCancel(int? id) {
             ViewBag.CarID = id;
             return View();
         }
+        [Authorize(Roles = "Client,Agince")]
+
         public ActionResult CancelReciveFirst(int? id, DateTime Start_Recive_Date)
         {
             var Cars_Recived = db.Cars.FirstOrDefault(car => car.Car_Id == id);
@@ -450,10 +498,12 @@ namespace RoleProject.Controllers
             }
         }
 
-        // POST: Cars/Edit/5
+        // POST: Cars/CancelRecive/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Agince")]
+
         public ActionResult CancelRecive(ReciveDate reciveDate)
         {
             try
@@ -478,6 +528,7 @@ namespace RoleProject.Controllers
                         {
                         Rea_reciveDate.End_Recive_Date = DateTime.Now;
                             Calc_price(Rea_reciveDate);
+                        
                             db.SaveChanges();
                             return View("bill", Cars_Recived);
                         }
@@ -502,11 +553,15 @@ namespace RoleProject.Controllers
                 return View("Car_Not_Found"); // dispaly Cars is Not Fount 
             }
             }
-        
-            public void Calc_price(ReciveDate reciveDate)
+
+
+        [Authorize(Roles = "Client,Agince")]
+
+        public void Calc_price(ReciveDate reciveDate)
         {
             int days_is_recived = reciveDate.End_Recive_Date.Subtract(reciveDate.Start_Recive_Date).Days;
             reciveDate.Total_Cost = days_is_recived * reciveDate.cars.price_in_day;
+
         }
     }
 }
