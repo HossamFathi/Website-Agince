@@ -13,16 +13,16 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
-    [Authorize(Roles = "Agince,Admin")]
 
+    //[Authorize(Roles = "Admin")]
     public class ClientsController : Controller
     {
 
-
+      
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinets
-        [Authorize(Roles = "Agince,Admin")]
+       
 
         public ActionResult List_Of_All()
         {
@@ -101,7 +101,7 @@ namespace RoleProject.Controllers
                 return View("List_Of_All", clinet);
             }
         }
-
+        [AllowAnonymous]
         // GET: Clinets/Details/5
         public ActionResult Details(String id)
         {
@@ -151,6 +151,7 @@ namespace RoleProject.Controllers
 
         //    return View(client);
         //}
+        [AllowAnonymous]
 
         // GET: Clinets/Edit/5
         public ActionResult Edit(string id)
@@ -159,7 +160,7 @@ namespace RoleProject.Controllers
         }
 
         // POST: Clinets/Edit/5
-
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string Client_ID, Client client)
@@ -189,7 +190,10 @@ namespace RoleProject.Controllers
                 newClient.phone_Number = client.phone_Number;
                
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+              
+               return RedirectToAction("List_Of_All", "Cars"); 
+
+                
             }
             catch
             {
@@ -198,8 +202,7 @@ namespace RoleProject.Controllers
         }
 
 
-
-
+        [AllowAnonymous]
         // GET: Clients/complete_data
         public ActionResult complete_data(string id)
         {
@@ -218,6 +221,7 @@ namespace RoleProject.Controllers
         // Post : Clients/complete_data
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult complete_data(String id, Client clinet)
         {
 
@@ -237,8 +241,12 @@ namespace RoleProject.Controllers
                     clinet.photo_path.SaveAs(filename);
                     //----------------------------/
                 }
+                newclinet.age = clinet.age;
+                newclinet.number_of_licience = clinet.number_of_licience;
+                newclinet.date_of_licience_expiry = clinet.date_of_licience_expiry;
+                
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+                return RedirectToAction("List_of_all","Cars");
             }
             catch
             {

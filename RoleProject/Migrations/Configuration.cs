@@ -9,7 +9,7 @@ namespace RoleProject.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(RoleProject.Models.ApplicationDbContext context)

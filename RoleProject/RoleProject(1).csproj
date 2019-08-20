@@ -168,7 +168,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AginceController.cs" />
     <Compile Include="Controllers\AgincesController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\Car_propertiesController.cs" />
@@ -178,6 +177,10 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908201441228_migration.cs" />
+    <Compile Include="Migrations\201908201441228_migration.Designer.cs">
+      <DependentUpon>201908201441228_migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -207,6 +210,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\overlay-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -263,7 +267,7 @@
     <Content Include="Views\Cars\Create.cshtml" />
     <Content Include="Views\Cars\Details.cshtml" />
     <Content Include="Views\Cars\Delete.cshtml" />
-    <Content Include="Views\Cars\List_Of_All.cshtml" />
+    <Content Include="Views\Shared\List_Of_All.cshtml" />
     <Content Include="Views\Cars\Edit.cshtml" />
     <Content Include="Views\Clients\Create.cshtml" />
     <Content Include="Views\Clients\Delete.cshtml" />
@@ -294,10 +298,23 @@
     <Content Include="Views\Cars\Recive_Not_Done_Yet.cshtml" />
     <Content Include="Views\Aginces\complete_data.cshtml" />
     <Content Include="Views\Cars\DetailsCancel.cshtml" />
+    <Content Include="Views\Shared\Recive_Alredy_Done.cshtml" />
+    <Content Include="Views\Shared\SearchError.cshtml" />
+    <Content Include="Views\Shared\_CustomLayout.cshtml" />
+    <Content Include="Views\Shared\_filter_Car.cshtml" />
+    <Content Include="Views\Shared\_Search_Aginces_Partial.cshtml" />
+    <Content Include="Views\Shared\_Search_Car_Partial.cshtml" />
+    <Content Include="Views\Shared\_Search_Client_Partial.cshtml" />
+    <Content Include="Views\Shared\_Search_Users_Partial.cshtml" />
+    <Content Include="Views\Shared\_Sorting_Agince_Partial.cshtml" />
+    <Content Include="Views\Shared\_Sorting_clinet_Partial.cshtml" />
+    <Content Include="Views\Shared\_Sorting_Partial.cshtml" />
+    <Content Include="Views\Shared\_start.cshtml" />
+    <Content Include="Views\Shared\_startPage_partial.cshtml" />
+    <Content Include="Views\Clients\complete_data.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\" />
     <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +329,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908201441228_migration.resx">
+      <DependentUpon>201908201441228_migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

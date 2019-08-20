@@ -1,19 +1,12 @@
 ﻿
 
+
 @if (User.IsInRole("Agince"))
 {
 
 
 
-    <li>@Html.ActionLink("Create Car", "Create", "Cars")</li>
-    <li>@Html.ActionLink("Show List Of All Cars", "List_Of_All", "Cars")</li>
-
-
-
-}
-@if (User.IsInRole("Client"))
-{
-    <li>@Html.ActionLink(" Booking Car OR show All car", "List_Of_All", "Cars")</li>
+<li>@Html.ActionLink("Create Car", "Create", "Cars")</li>
 
 }
 

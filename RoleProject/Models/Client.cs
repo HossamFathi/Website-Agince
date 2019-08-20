@@ -22,11 +22,11 @@ namespace RoleProject.Models
         [Required]
         [Display(Name = "ID")]
         public String Client_ID { get; set; }
-        private string Password_Client;
-        [Required]
-        [DataType(DataType.Password)]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        public string password { get; set; }
+        //private string Password_Client;
+        //[Required]
+        //[DataType(DataType.Password)]
+        ////[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        //public string password { get; set; }
         //[NotMapped]
         //[Display(Name = "Confirm Password")]
         //[Compare("password", ErrorMessage = "The password and confirmation password do not match.")]

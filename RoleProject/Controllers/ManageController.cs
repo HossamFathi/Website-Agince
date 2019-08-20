@@ -78,6 +78,7 @@ namespace RoleProject.Controllers
             //    return RedirectToAction("Details", "Agince", new { id });
             //}
             //else 
+            var typ = User.Identity.AuthenticationType;
             if (User.IsInRole("Agince"))
             {
                 return RedirectToAction("Details", "Aginces", new { id = userId });
@@ -88,9 +89,9 @@ namespace RoleProject.Controllers
             }
 
             else if (User.IsInRole("Admin")) {
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Account", new { id = userId });
             }
-            else return RedirectToAction("Index");
+            else return RedirectToAction("List_of_all","cars");
         }
 
 

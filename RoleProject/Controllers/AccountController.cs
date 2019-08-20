@@ -17,7 +17,7 @@ using RoleProject.View_Model;
 
 namespace RoleProject.Controllers
 {
-    [Authorize]
+  
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -140,7 +140,7 @@ namespace RoleProject.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+                return RedirectToAction("UsersWithRoles");
             }
             else
                 return View(user);
@@ -264,12 +264,20 @@ namespace RoleProject.Controllers
                     {
                         db.Client.Remove(db.Client.FirstOrDefault(w => w.Client_ID == model.Id));
                         db.SaveChanges();
+                        clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
+                        clinet.Name = model.UserName;
+                        //clinet.password = model.Password;
+                        clinet.phone_Number = model.PhoneNumber;
+                        clinet.city = model.city;
+                        clinet.street = model.Street;
+                        context.Client.Add(clinet);
+                        context.SaveChanges();
                     }
                     else
                     {
                         clinet.Client_ID = (model.Id); //  اقصد به رقم البطاقه
                         clinet.Name = model.UserName;
-                        clinet.password = model.Password;
+                       // clinet.password = model.Password;
                         clinet.phone_Number = model.PhoneNumber;
                         clinet.city = model.city;
                         clinet.street = model.Street;
@@ -288,12 +296,20 @@ namespace RoleProject.Controllers
                     {
                         db.Agince.Remove(db.Agince.FirstOrDefault(w => w.Agince_ID == model.Id));
                         db.SaveChanges();
+                        aganis_Car.Agince_ID = (model.Id);
+                        aganis_Car.name = model.UserName;
+                        //aganis_Car.password = model.Password;
+                        aganis_Car.phone_number = model.PhoneNumber;
+                        aganis_Car.city = model.city;
+                        aganis_Car.street = model.Street;
+                        context.Agince.Add(aganis_Car);
+                        context.SaveChanges();
                     }
                     else
                     {
                         aganis_Car.Agince_ID = (model.Id);
                         aganis_Car.name = model.UserName;
-                        aganis_Car.password = model.Password;
+                       // aganis_Car.password = model.Password;
                         aganis_Car.phone_number = model.PhoneNumber;
                         aganis_Car.city = model.city;
                         aganis_Car.street = model.Street;
@@ -323,8 +339,9 @@ namespace RoleProject.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                
+                    
                     this.UserManager.AddToRole(user.Id, model.Roles);
-
                     if (model.Roles == "Agince")
                     {
                         return RedirectToAction("complete_data", "Aginces", new { id = user.Id });
@@ -333,8 +350,8 @@ namespace RoleProject.Controllers
                     {
                         return RedirectToAction("complete_data", "Clients", new { id = user.Id });
                     }
-                    else if(model.Roles == "Admin")
-                        return RedirectToAction("UsersWithRoles");
+                    else if(model.Roles == "Admin") { return RedirectToAction("UsersWithRoles"); }
+
 
                 }
 
@@ -693,6 +710,49 @@ namespace RoleProject.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Aginces/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+
+            if (db.Agince.Find(id) != null) {
+
+                db.Agince.Remove(db.Agince.Find(id));
+                db.SaveChanges();
+
+            }
+            else
+            {
+                if (db.Client.Find(id) != null)
+                {
+
+                    db.Client.Remove(db.Client.Find(id));
+                    db.SaveChanges();
+
+                }
+            }
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("UsersWithRoles");
         }
 
         #region Helpers

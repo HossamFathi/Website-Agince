@@ -22,11 +22,11 @@ namespace RoleProject.Models
 
         public string name { get; set; }
 
-        private string Password_Agence;
-        [Required]
-        [DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        public string password { get { return Password_Agence; } set { Password_Agence = value; } }
+        //private string Password_Agence;
+        //[Required]
+        //[DataType(DataType.Password)]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        //public string password { get { return Password_Agence; } set { Password_Agence = value; } }
 
         //[NotMapped]
         //[Display(Name = "Confirm Password")]

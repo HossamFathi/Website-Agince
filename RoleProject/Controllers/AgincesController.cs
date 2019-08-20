@@ -11,10 +11,11 @@ using RoleProject.Models;
 
 namespace RoleProject.Controllers
 {
-    //[Authorize(Roles ="Agince")]
+    [Authorize(Roles ="Admin")]
     public class AgincesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
 
 
         [AllowAnonymous]
@@ -24,7 +25,6 @@ namespace RoleProject.Controllers
             return View(db.Agince.ToList());
         }
 
-        [AllowAnonymous]
         public ActionResult sorting()
         {
             return PartialView("_Sorting_Agince_Partial");
@@ -69,7 +69,6 @@ namespace RoleProject.Controllers
         }
 
 
-        [AllowAnonymous]
         public ActionResult Search(string searchItem)
         {
 
@@ -91,9 +90,9 @@ namespace RoleProject.Controllers
             return View("Details", c);
         }
 
-        
 
 
+        [AllowAnonymous]
         // GET: Aginces/Details/5
         public ActionResult Details(string id)
         {
@@ -116,7 +115,7 @@ namespace RoleProject.Controllers
         //}
 
         //// POST: Aginces/Create
-     
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Create( Agince agince)
@@ -139,7 +138,7 @@ namespace RoleProject.Controllers
 
         //    return View(agince);
         //}
-
+        [AllowAnonymous]
 
         // GET: Aginces/complete_data
         public ActionResult complete_data(string id)
@@ -159,6 +158,7 @@ namespace RoleProject.Controllers
         // POST: Aginces/complete_data
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult complete_data(String id, Agince agince)
         {
@@ -180,7 +180,7 @@ namespace RoleProject.Controllers
                     //----------------------------/
                 }
                 db.SaveChanges();
-                return RedirectToAction("List_Of_All");
+                return RedirectToAction("login","Account");
             }
             catch
             {
@@ -188,7 +188,7 @@ namespace RoleProject.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         // GET: Aginces/Edit/5
         public ActionResult Edit(string id)
         {
@@ -205,7 +205,7 @@ namespace RoleProject.Controllers
         }
 
         // POST: Aginces/Edit/5
-      
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(String id, Agince agince)

@@ -18,19 +18,24 @@
         </ul>
     }
     if (User.IsInRole("Agince"))
-    { @*@Html.Partial("_filter_Car");*@ }
-           else if (User.IsInRole("Client"))
-         { @*@Html.Partial("_filter_Car");*@}
-            else if (User.IsInRole("Admin"))
-              {@Html.Partial("_Search_Users_Partial");}
+    { @Html.Partial("_Search_Car_Partial");
+}
+else if (User.IsInRole("Client"))
+{ @Html.Partial("_Search_Car_Partial");
+}
+else if (User.IsInRole("Admin"))
+{@Html.Partial("_Search_Users_Partial");
+}
+
 
 }
 else
 {
-
+@Html.Partial("_Search_Car_Partial")
 <ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "glyphicon glyphicon-user" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = " glyphicon glyphicon-log-in" })</li>
 
 </ul>
 

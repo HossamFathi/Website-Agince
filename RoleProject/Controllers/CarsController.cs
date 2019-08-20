@@ -23,8 +23,28 @@ namespace RoleProject.Controllers
        [AllowAnonymous]
         public ActionResult List_Of_All()
         {
-            var cars = db.Cars.ToList();
+            var cars = new List<Car>();
+
+            if (User.IsInRole("Agince"))
+            {
+                string id = User.Identity.GetUserId();
+                //var agince = new List<Agince>();
+                //agince = db.Agince.FirstOrDefault(w => w.Agince_ID == id).Collection_Of_Car;
+                cars = (from w in db.Cars
+                       where w.Agince_Of_Car.Agince_ID == id
+                       select w).ToList();
+
+            }
+            else
+            {
+                
+
+                cars = db.Cars.ToList();
+             
+            }
+
             return View(cars);
+
         }
 
         //List<int> numbers = new List<int>();
@@ -67,7 +87,7 @@ namespace RoleProject.Controllers
 
         // search
         [AllowAnonymous]
-        public ActionResult Search(string searchItem) {
+        public ActionResult Search(/*string searchItem*/) {
 
   
 
@@ -75,52 +95,62 @@ namespace RoleProject.Controllers
         }
         [AllowAnonymous]
 
-        public ActionResult Go_Search(string searchItem, int? num)
+        public ActionResult Go_Search(string searchItem)/*, int? num)*/
         {
+            //int Chassis_No = Convert.ToInt32(searchItem);
 
-            var cars = new List<Car>();
-            var car2 = new Car();
-            if (num == 1)
-            {
-                cars = (from n in db.Cars
-                        where n.Type_Of_Car.Contains(searchItem)
-                        select n).ToList();
-                return View("List_Of_All", cars);
-            }
+            List<Car> cars = db.Cars.Where(x => x.Type_Of_Car.Contains(searchItem) || x.Car_Brand.Contains(searchItem) || x.Car_Model.Contains(searchItem) /*|| x.Chassis_No.Contains(searchItem)*/).ToList();
 
-            else if (num == 2)
-            {
-                cars = (from n in db.Cars
-                        where n.Car_Model.Contains(searchItem)
-                        select n).ToList();
-                return View("List_Of_All", cars);
-            }
-
-            else if (num == 3)
-            {
-                cars = (from n in db.Cars
-                        where n.Car_Brand.Contains(searchItem)
-                        select n).ToList();
-                return View("List_Of_All", cars);
-            }
-
-            else if (num == 4)
-            {
-                int Chassis_No = Convert.ToInt32(searchItem);
-                car2 = (db.Cars.FirstOrDefault(e => e.Chassis_No == Chassis_No));
-                return View("List_Of_All", car2);
-            }
-           else
-            {
-                return View("Car_Not_Found");
+            return View("List_Of_All", cars);
 
 
-            }
-        }  
+            #region OLDcODE
+            /*
+             var cars = new List<Car>();
+             var car2 = new Car();
+             if (num == 1)
+             {
+                 cars = (from n in db.Cars
+                         where n.Type_Of_Car.Contains(searchItem)
+                         select n).ToList();
+                 return View("List_Of_All", cars);
+             }
 
-           
+             else if (num == 2)
+             {
+                 cars = (from n in db.Cars
+                         where n.Car_Model.Contains(searchItem)
+                         select n).ToList();
+                 return View("List_Of_All", cars);
+             }
 
-        
+             else if (num == 3)
+             {
+                 cars = (from n in db.Cars
+                         where n.Car_Brand.Contains(searchItem)
+                         select n).ToList();
+                 return View("List_Of_All", cars);
+             }
+
+             else if (num == 4)
+             {
+                 int Chassis_No = Convert.ToInt32(searchItem);
+                 car2 = (db.Cars.FirstOrDefault(e => e.Chassis_No == Chassis_No));
+                 return View("List_Of_All", car2);
+             }
+            else
+             {
+                 return View("Car_Not_Found");
+
+
+             }
+            */
+            #endregion
+        }
+
+
+
+
         //sorting
         [AllowAnonymous]
 
@@ -148,22 +178,15 @@ namespace RoleProject.Controllers
                 switch (num) {
 
                     case 1:
-               
-                        cars = db.Cars.OrderBy(e => e.reciveDates).ToList();
-                        break;
-                    case 2:
                         cars = db.Cars.OrderBy(e => e.price_in_day).ToList();
                         break;
-                    case 3:
+                    case 2:
                         cars = db.Cars.OrderBy(e => e.Car_Brand).ToList();
                         break;
-                    case 4:
+                    case 3:
                         cars = db.Cars.OrderBy(e => e.Car_Model).ToList();
                         break;
-                    case 5:
-                        cars = db.Cars.OrderBy(e => e.Chassis_No).ToList();
-                        break;
-                    
+
 
                 }
 

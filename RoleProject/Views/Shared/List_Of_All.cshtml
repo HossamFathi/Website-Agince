@@ -6,13 +6,7 @@
 
 }
 
-<h2>Cars in Agince</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-
-
-</p>
+<h2>Cars</h2>
 
 @* sorting *@
 
@@ -29,23 +23,6 @@ new
 })
 
 
-
-@* search *@
-
-@Ajax.ActionLink("Search", "Search", "Cars", new AjaxOptions
-{
-    HttpMethod = "get",
-    UpdateTargetId = "create_2",
-    InsertionMode = InsertionMode.Replace
-},
-new
-{
-   @class = "btn btn-danger",
-
-})
-
-@* Filter *@
-
 @Ajax.ActionLink("filter", "filter", "Cars", new AjaxOptions
 {
     HttpMethod = "get",
@@ -58,10 +35,10 @@ new
 
 })
 <div id="create_2"></div>
-<table class="table table-hover ">
+<table class="table table-hover " style="background-color:#fff">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.photo_Car)
+           
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Type_Of_Car)
@@ -79,7 +56,7 @@ new
             @Html.DisplayNameFor(model => model.price_in_day)
         </th>
 
-        <th>Statuis</th>
+       
         <th>
             Options
         </th>
@@ -110,50 +87,38 @@ new
         @Html.DisplayFor(modelItem => item.price_in_day)
     </td>
 
-    <td>
-        @if (item.reciveDates.Count() > 0)
-        {
-
-            <h3 style=" color:red"> is reseved</h3>
-
-        }
-        else
-        { <h3 style="color:Blue"> IsNot reseved</h3>
-        }
-
-    </td>
-
+    
 
     <td>
         @if (User.IsInRole("Client"))
         {
 
             @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
-     new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+     new { @class = "btn btn-warning", style = "border-radius:50%" }) 
 
             @Html.ActionLink("Recive", "Recive", new { id = item.Car_Id }, htmlAttributes:
-                     new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
-            @Html.ActionLink("Cancel Recive", "CancelRecive", new { id = item.Car_Id }, htmlAttributes:
-                    new { @class = "btn btn-warning", style = "border-radius:50%" })<p>|</p>
+                     new { @class = "btn btn-warning", style = "border-radius:50%" }) 
+            @Html.ActionLink("Cancel Recive", "DetailsCancel","Cars", new { id = item.Car_Id }, htmlAttributes:
+                    new { @class = "btn btn-warning", style = "border-radius:50%" })
 
         }
         else if (User.IsInRole("Agince"))
 
         {
             @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
-              new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+              new { @class = "btn btn-warning", style = "border-radius:50%" }) 
 
             @Html.ActionLink("Edit", "Edit", new { id = item.Car_Id }, htmlAttributes:
-                     new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
+                     new { @class = "btn btn-warning", style = "border-radius:50%" }); 
 
             @Html.ActionLink("Delete", "Delete", new { id = item.Car_Id }, htmlAttributes:
-                    new { @class = "btn btn-warning", style = "border-radius:50%" }); <p>|</p>
+                    new { @class = "btn btn-warning", style = "border-radius:50%" }); 
 
 
         }
         else
         { @Html.ActionLink("Details", "Details", new { id = item.Car_Id }, htmlAttributes:
-            new { @class = "btn btn-warning", style = "border-radius:50%" }) <p>|</p>
+            new { @class = "btn btn-warning", style = "border-radius:50%" }) 
     }
 
 

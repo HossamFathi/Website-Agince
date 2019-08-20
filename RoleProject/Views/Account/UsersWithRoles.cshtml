@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }@* search *@
 
-@Ajax.ActionLink("Search", "Search", "Account", new AjaxOptions
+@*@Ajax.ActionLink("Search", "Search", "Account", new AjaxOptions
 {
     HttpMethod = "get",
     UpdateTargetId = "create_2",
@@ -15,10 +15,10 @@ new
 {
      @class = "text-danger",
 
-})
+})*@
 
 
-@Html.Partial("_Search_Users_Partial")
+@*@Html.Partial("_Search_Users_Partial")*@
 
 
 <br />
@@ -40,15 +40,17 @@ new
     </thead>
     @foreach (var user in Model)
     {
-        <tr>
-            <td>@user.Username</td>
-            <td>@user.Email</td>
-            <td>@user.city</td>
-            <td>@user.street</td>
-            <td>@user.phone_number</td>
-            <td>@user.Role</td>
-
-        </tr>
+<tr>
+    <td>@user.UserId</td>
+    <td>@user.Username</td>
+    <td>@user.Email</td>
+    <td>@user.city</td>
+    <td>@user.street</td>
+    <td>@user.phone_number</td>
+    <td>@user.Role</td>
+    <td> @Html.ActionLink("Delete", "Delete", new { id = user.UserId })</td>
+    <td> @Html.ActionLink("Edit", "Edit", new { id = user.UserId })</td>
+</tr>
 
     }
 </table>
