@@ -78,7 +78,7 @@ namespace RoleProject.Controllers
             //    return RedirectToAction("Details", "Agince", new { id });
             //}
             //else 
-            var typ = User.Identity.AuthenticationType;
+            
             if (User.IsInRole("Agince"))
             {
                 return RedirectToAction("Details", "Aginces", new { id = userId });
